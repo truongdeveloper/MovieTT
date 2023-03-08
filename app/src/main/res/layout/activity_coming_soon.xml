@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ComingSoon">
 
+    <include
+        android:id="@+id/navigation_view"
+        layout="@layout/navigation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

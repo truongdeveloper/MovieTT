@@ -20,14 +20,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_home: {
                     // Handle home click
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                     return true;
                 }
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     // Handle favorites click
                     Intent intent = new Intent(this, MovieSearch.class);
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                     return true;
                 }
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     // Handle settings click
                     Intent intent = new Intent(this, Trending.class);
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                     return true;
                 }
@@ -51,14 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     // Handle settings click
                     Intent intent = new Intent(this, ComingSoon.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                     return true;
             }
             }
             return false;
         });
-    }
-    public void AnhXa() {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
     }
 }
