@@ -1,16 +1,20 @@
 package com.example.moviett;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,53 +24,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        BottomNavigationView navigation = findViewById(R.id.navigation);
-//        navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.navigation_home: {
-//                        // Handle home click
-//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-//                        finish();
-//                        return true;
-//                    }
-//                    case R.id.navigation_search: {
-//                        // Handle favorites click
-//                        Intent intent = new Intent(getApplicationContext(), MovieSearch.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-//                        finish();
-//                        return true;
-//                    }
-//                    case R.id.navigation_trending: {
-//                        // Handle settings click
-//                        Intent intent = new Intent(getApplicationContext(), Trending.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-//                        finish();
-//                        return true;
-//                    }
-//                    case R.id.navigation_coming: {
-//                        // Handle settings click
-//                        Intent intent = new Intent(getApplicationContext(), ComingSoon.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-//                        finish();
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         mViewPager = findViewById(R.id.view_pager);
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -104,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         mViewPager.setCurrentItem(0);
@@ -125,5 +90,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Còn rất nhiều phim hay bạn có muốn thoát?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Xử lý các tác vụ trước khi thoát ứng dụng
+                        finish();
+                    }
+                })
+                .setNegativeButton("Không", null)
+                .show();
     }
 }
