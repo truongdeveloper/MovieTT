@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private String[] mData = new String[]{"Item 1", "Item 2", "Item 3"};
+    private String[] mData = new String[]{"Item 1", "Item 2", "Item 3", "Item 4", "Item 4", "Item 4", "Item 4", "Item 4", "Item 4"};
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
