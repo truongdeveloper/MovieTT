@@ -21,13 +21,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 return new TrendingFragment();
             case 3:
                 return new ComingSoonFragment();
-            default:
+            case 4:
                 return new MovieDetailFragment();
+            default:
+                return new HomeFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 }

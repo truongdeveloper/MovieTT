@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/black_overlay"
+        app:background="@color/black_overlay"
         app:itemIconTint="@drawable/bottom_navigation_item_color"
         app:itemTextColor="@drawable/bottom_navigation_item_color"
         app:menu="@menu/navigation_menu" />
