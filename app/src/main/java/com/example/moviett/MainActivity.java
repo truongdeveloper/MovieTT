@@ -1,7 +1,6 @@
 package com.example.moviett;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -35,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = findViewById(R.id.view_pager);
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Trang chủ");
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPager.setAdapter(adapter);
@@ -78,19 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         mViewPager.setCurrentItem(0);
-                        actionBar.setTitle("Trang chủ");
                         break;
                     case R.id.navigation_search:
                         mViewPager.setCurrentItem(1);
-                        actionBar.setTitle("Tìm kiếm");
                         break;
                     case R.id.navigation_trending:
                         mViewPager.setCurrentItem(2);
-                        actionBar.setTitle("Xu hướng");
                         break;
                     case R.id.navigation_coming:
                         mViewPager.setCurrentItem(3);
-                        actionBar.setTitle("Sắp ra mắt");
                         break;
                 }
                 return true;
