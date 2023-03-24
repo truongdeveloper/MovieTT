@@ -1,5 +1,6 @@
 package com.example.moviett;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,23 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private String[] mData = new String[]{"Item 1", "Item 2", "Item 3", "Item 4", "Item 4", "Item 4", "Item 4", "Item 4", "Item 4"};
+    private Context mContext;
+    private List<Movie> mListMovie;
+
+    public MyAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public void setData(List<Movie> movie) {
+        this.mListMovie = movie;
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -20,21 +35,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mData[position]);
+        Movie movie = mListMovie.get(position);
+        if(movie == null) {
+            return ;
+        }
+        Picasso.get()
+                .load(movie.getSrcImg())
+                .placeholder(R.drawable.loadinganimation)
+                .error(R.drawable.loading)
+                .into(holder.posterImg);
+        holder.mTextView.setText(movie.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return mData.length;
+        if(mListMovie != null) {
+            return mListMovie.size();
+        }
+        else {
+            return 0;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTextView;
-//        ImageView movieCoverImage = findViewById(R.id.movie_cover_image);
+        public ImageView posterImg;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            posterImg = itemView.findViewById(R.id.movie_cover_image);
             mTextView = itemView.findViewById(R.id.movie_title_text);
         }
     }
