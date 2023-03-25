@@ -1,6 +1,8 @@
 package com.example.moviett;
 
 import android.content.Context;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moviett.ApiContainer.MovieApi;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,14 +19,15 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Movie> mListMovie;
+//    private List<Movie> mListMovie;
+    private List<MovieApi> mListMovieApi;
 
     public MyAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<Movie> movie) {
-        this.mListMovie = movie;
+    public void setData(List<MovieApi> movie) {
+        this.mListMovieApi = movie;
         notifyDataSetChanged();
     }
 
@@ -35,12 +39,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = mListMovie.get(position);
+        MovieApi movie = mListMovieApi.get(position);
         if(movie == null) {
             return ;
         }
         Picasso.get()
-                .load(movie.getSrcImg())
+                .load(movie.getPosterPath())
                 .placeholder(R.drawable.loadinganimation)
                 .error(R.drawable.loading)
                 .into(holder.posterImg);
@@ -49,8 +53,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(mListMovie != null) {
-            return mListMovie.size();
+        if(mListMovieApi != null) {
+            return mListMovieApi.size();
         }
         else {
             return 0;
