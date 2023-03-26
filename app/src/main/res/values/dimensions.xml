@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Text size -->
+    <dimen name="filmNameSize">30sp</dimen>
+    <dimen name="textSize">16sp</dimen>
+    <dimen name="textTitle1">18sp</dimen>
+    <dimen name="textTitle2">17sp</dimen>
+    <dimen name="textSmall">14sp</dimen>
+</resources>

@@ -14,21 +14,15 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-<<<<<<< HEAD
-            android:exported="true"/>
-=======
-            android:exported="true" />
->>>>>>> 5cbd18aab7a1d8801935f6e8c965985d434d9c32
+
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>

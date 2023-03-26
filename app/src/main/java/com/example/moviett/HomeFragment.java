@@ -47,9 +47,9 @@ public class HomeFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
 
 
-        //Seup layout cho RecycleView
+        //Setup layout cho RecycleView
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        //data đổ vào Apdapter
+        //data đổ vào Adapter
         callApigetHome();
         return view;
     }
