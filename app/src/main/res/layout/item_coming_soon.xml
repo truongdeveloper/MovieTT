@@ -28,13 +28,25 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/tv_titleMonth"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="THÁNG 03"
-                android:textSize="20sp"
-                android:textColor="#BDBBBB"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="THÁNG"
+                    android:textSize="20sp"
+                    android:textColor="#BDBBBB"/>
+                <TextView
+                    android:id="@+id/tv_titleMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="20sp"
+                    android:textColor="#BDBBBB"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <ImageView
@@ -94,20 +106,21 @@
                     android:textColor="@color/white"
                     android:paddingStart="15dp"/>
             </LinearLayout>
-            <TextView
+            <!--<TextView
                 android:id="@+id/releaseTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ra mắt vào thứ Ba ngày 28/3"
                 android:textSize="@dimen/textTitle2"
-                android:textColor="@color/light_blue_A200"/>
+                android:textColor="@color/light_blue_A200"/>-->
             <TextView
                 android:id="@+id/tv_trainerContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSize"/>
+                android:textSize="@dimen/textSize"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
     </LinearLayout>
 

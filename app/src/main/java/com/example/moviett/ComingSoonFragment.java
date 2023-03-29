@@ -1,29 +1,38 @@
-package com.example.moviett.Fragment;
+package com.example.moviett;
 
+import android.graphics.Movie;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.moviett.Adapter.ComingSoonAdapter;
-import com.example.moviett.Object.ComingSoon;
+import com.example.moviett.ApiContainer.ApiService;
+import com.example.moviett.ApiContainer.ListMovie;
+import com.example.moviett.MainActivity;
+import com.example.moviett.MyAdapter;
 import com.example.moviett.R;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ComingSoonFragment extends Fragment {
 
     private RecyclerView mRcvComingSoon;
-    private List<ComingSoon> list;
+    private ListMovie mListMovie;
 
     public ComingSoonFragment() {
         // Required empty public constructor
@@ -38,16 +47,40 @@ public class ComingSoonFragment extends Fragment {
         mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
         mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
-        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+        /*ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
         comingSoonAdapter.setData(getListComingSoon());
 
-        mRcvComingSoon.setAdapter(comingSoonAdapter);
+        mRcvComingSoon.setAdapter(comingSoonAdapter);*/
+
+        callApiComingSoon();
 
 
         return view;
     }
 
-    private List<ComingSoon> getListComingSoon() {
+    private void callApiComingSoon() {
+        ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
+            @Override
+            public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
+                Log.i("Thong bao", "Success");
+                mListMovie = response.body();
+                ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+                comingSoonAdapter.setData(mListMovie.getTrandingMovies());
+                mRcvComingSoon.setAdapter(comingSoonAdapter);
+
+                if (mListMovie != null && mListMovie.isSuccess()) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListMovie> call, Throwable t) {
+                Log.i("Thong bao", "Success");
+            }
+        });
+    }
+
+    /*private List<ComingSoon> getListComingSoon() {
         List<ComingSoon> list = new ArrayList<>();
         list.add(new ComingSoon(R.drawable.poster_1, "Film Name 1", "Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."));
         list.add(new ComingSoon(R.drawable.poster_2, "Film Name 2", "Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."));
@@ -58,5 +91,5 @@ public class ComingSoonFragment extends Fragment {
         list.add(new ComingSoon(R.drawable.poster_7, "Film Name 7", "Content Film Name 7"));
         list.add(new ComingSoon(R.drawable.poster_8, "Film Name 8", "Content Film Name 8"));
         return list;
-    }
+    }*/
 }
