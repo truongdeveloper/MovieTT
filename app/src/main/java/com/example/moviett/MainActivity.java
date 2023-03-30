@@ -11,9 +11,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.moviett.Adapter.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -52,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_home).setChecked(true);
+                        actionBar.setTitle("Trang chủ");
                         break;
                     case 1:
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_search).setChecked(true);
+                        actionBar.setTitle("Tìm kiếm");
                         break;
                     case 2:
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_trending).setChecked(true);
+                        actionBar.setTitle("Xu hướng");
                         break;
                     case 3:
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_coming).setChecked(true);
+                        actionBar.setTitle("Sắp ra mắt");
                         break;
                 }
             }

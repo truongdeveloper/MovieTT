@@ -1,8 +1,6 @@
-package com.example.moviett;
+package com.example.moviett.Adapter;
 
 import android.content.Context;
-import android.nfc.Tag;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

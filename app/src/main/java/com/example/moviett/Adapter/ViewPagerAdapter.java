@@ -1,9 +1,15 @@
-package com.example.moviett;
+package com.example.moviett.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.moviett.Fragment.ComingSoonFragment;
+import com.example.moviett.Fragment.HomeFragment;
+import com.example.moviett.Fragment.MovieDetailFragment;
+import com.example.moviett.Fragment.MovieSearchFragment;
+import com.example.moviett.TrendingFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

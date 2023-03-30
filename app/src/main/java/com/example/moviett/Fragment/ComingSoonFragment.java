@@ -1,6 +1,5 @@
-package com.example.moviett;
+package com.example.moviett.Fragment;
 
-import android.graphics.Movie;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,19 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.moviett.Adapter.ComingSoonAdapter;
 import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
-import com.example.moviett.MainActivity;
-import com.example.moviett.MyAdapter;
 import com.example.moviett.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +56,7 @@ public class ComingSoonFragment extends Fragment {
                 Log.i("Thong bao", "Success");
                 mListMovie = response.body();
                 ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
-                comingSoonAdapter.setData(mListMovie.getTrandingMovies());
+                comingSoonAdapter.setData(mListMovie.getUpcoming());
                 mRcvComingSoon.setAdapter(comingSoonAdapter);
 
                 if (mListMovie != null && mListMovie.isSuccess()) {

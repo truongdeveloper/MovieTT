@@ -11,13 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
-import com.example.moviett.ComingSoonFragment;
+import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.Console;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.List;
 
 public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.ComingSoonViewHolder>{
@@ -73,7 +70,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
             return ;
         }
         Picasso.get()
-                .load(movie.getPosterPath())
+                .load(movie.getBackdropPath())
                 .placeholder(R.drawable.loadinganimation)
                 .error(R.drawable.loading)
                 .into(holder.imgPosterFilm);

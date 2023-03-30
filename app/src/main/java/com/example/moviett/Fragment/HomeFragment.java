@@ -1,4 +1,4 @@
-package com.example.moviett;
+package com.example.moviett.Fragment;
 
 import android.os.Bundle;
 
@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 //Thư viện Slider
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.moviett.Adapter.MyAdapter;
 import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
