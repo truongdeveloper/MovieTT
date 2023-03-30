@@ -13,7 +13,7 @@ public class ListMovie {
     private List<MovieApi> topRatedTv;
     private List<MovieApi> upcoming;
 
-    public ListMovie(boolean success, List<MovieApi> randingMovies, List<MovieApi> nowPlayingMovies, List<MovieApi> topRatedMovies, List<MovieApi> trandingtv, List<MovieApi> topRatedTv, List<MovieApi> upcoming) {
+    public ListMovie(boolean success, List<MovieApi> trandingMovies, List<MovieApi> nowPlayingMovies, List<MovieApi> topRatedMovies, List<MovieApi> trandingtv, List<MovieApi> topRatedTv, List<MovieApi> upcoming) {
         this.success = success;
         this.trandingMovies = trandingMovies;
         this.nowPlayingMovies = nowPlayingMovies;
@@ -31,11 +31,11 @@ public class ListMovie {
         this.success = success;
     }
 
-    public List<MovieApi> getRandingMovies() {
+    public List<MovieApi> getTrandingMovies() {
         return trandingMovies;
     }
 
-    public void setRandingMovies(List<MovieApi> randingMovies) {
+    public void setTrandingMovies(List<MovieApi> randingMovies) {
         this.trandingMovies = randingMovies;
     }
 
