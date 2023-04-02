@@ -73,7 +73,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
             return ;
         }
         Picasso.get()
-                .load(movie.getPosterPath())
+                .load(movie.getBackdropPath())
                 .placeholder(R.drawable.loadinganimation)
                 .error(R.drawable.loading)
                 .into(holder.imgPosterFilm);
