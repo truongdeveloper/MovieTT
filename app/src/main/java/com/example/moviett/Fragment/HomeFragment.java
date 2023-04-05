@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void callApigetHome() {
-        ApiService.apiService.getHomeData("vi").enqueue(new Callback<ListMovie>() {
+        ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
             @Override
             public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                 mListMovie = response.body();
@@ -66,10 +67,6 @@ public class HomeFragment extends Fragment {
 
                 //Thêm hình ảnh,title, ScaleTypes(Làm cho hình vừa với view) cho Slider
                 List<SlideModel> imageList  = new ArrayList<>();
-//                imageList.add(new SlideModel("https://image.tmdb.org/t/p/w500/gB2qtSWf39MUmZX5rE9IQ6y4bOi.jpg", "The animal population decreased by 58 percent in 42 years.", null));
-//                imageList.add(new SlideModel("https://image.tmdb.org/t/p/w500/gB2qtSWf39MUmZX5rE9IQ6y4bOi.jpg", "Elephants and tigers may become extinct.",null));
-//                imageList.add(new SlideModel("https://bit.ly/3fLJf72", "And people do that.", null));
-
 
                 if (mListMovie != null && mListMovie.getTopRatedMovies() != null) {
                     for(int i = 0; i < 10; i++){
@@ -77,14 +74,13 @@ public class HomeFragment extends Fragment {
                     }
                     imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP);
                 } else {
-                    Log.e("ddd", "nos bij rooxng");
+
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<ListMovie> call, Throwable t) {
+                Toast.makeText(getActivity(), "Không lấy được dữ liệu má ơi", Toast.LENGTH_LONG).show();
 
             }
         });
