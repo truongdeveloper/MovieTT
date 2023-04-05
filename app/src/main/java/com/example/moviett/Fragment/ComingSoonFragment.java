@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.moviett.Adapter.ComingSoonAdapter;
 import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
+import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.MainActivity;
 import com.example.moviett.R;
 
 import retrofit2.Call;
@@ -24,6 +27,8 @@ public class ComingSoonFragment extends Fragment {
 
     private RecyclerView mRcvComingSoon;
     private ListMovie mListMovie;
+
+    private MainActivity mMainActivity;
 
     public ComingSoonFragment() {
         // Required empty public constructor
@@ -36,16 +41,9 @@ public class ComingSoonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_coming_soon, container, false);
 
         mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
-        mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-
-        /*ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
-        comingSoonAdapter.setData(getListComingSoon());
-
-        mRcvComingSoon.setAdapter(comingSoonAdapter);*/
-
+        mMainActivity = (MainActivity) getActivity();
+        mRcvComingSoon.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
         callApiComingSoon();
-
-
         return view;
     }
 
@@ -53,12 +51,17 @@ public class ComingSoonFragment extends Fragment {
         ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
             @Override
             public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
-                Log.i("Thong bao", "Success");
+                //Log.i("Thong bao", "Success");
                 mListMovie = response.body();
-                ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+                ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(),
+                        new ComingSoonAdapter.ItemClickListener() {
+                            @Override
+                            public void onClick(View view, int position, boolean isLongClick) {
+
+                            }
+                        });
                 comingSoonAdapter.setData(mListMovie.getUpcoming());
                 mRcvComingSoon.setAdapter(comingSoonAdapter);
-
                 if (mListMovie != null && mListMovie.isSuccess()) {
 
                 }
@@ -66,21 +69,8 @@ public class ComingSoonFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ListMovie> call, Throwable t) {
-                Log.i("Thong bao", "Success");
+                Log.i("Thong bao", "False");
             }
         });
     }
-
-    /*private List<ComingSoon> getListComingSoon() {
-        List<ComingSoon> list = new ArrayList<>();
-        list.add(new ComingSoon(R.drawable.poster_1, "Film Name 1", "Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."));
-        list.add(new ComingSoon(R.drawable.poster_2, "Film Name 2", "Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."));
-        list.add(new ComingSoon(R.drawable.poster_3, "Film Name 3", "Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."));
-        list.add(new ComingSoon(R.drawable.poster_4, "Film Name 4", "Content Film Name 4"));
-        list.add(new ComingSoon(R.drawable.poster_5, "Film Name 5", "Content Film Name 5"));
-        list.add(new ComingSoon(R.drawable.poster_6, "Film Name 6", "Content Film Name 6"));
-        list.add(new ComingSoon(R.drawable.poster_7, "Film Name 7", "Content Film Name 7"));
-        list.add(new ComingSoon(R.drawable.poster_8, "Film Name 8", "Content Film Name 8"));
-        return list;
-    }*/
 }

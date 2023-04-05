@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
@@ -14,8 +15,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.moviett.Adapter.ViewPagerAdapter;
+import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.Fragment.MovieDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
@@ -77,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         mViewPager.setCurrentItem(0);
@@ -114,5 +117,10 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Không", null)
                 .show();
+    }
+
+    public void goToMovieDetail() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        mViewPager.setAdapter(adapter);
     }
 }

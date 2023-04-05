@@ -9,7 +9,7 @@ import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
 import com.example.moviett.Fragment.MovieDetailFragment;
 import com.example.moviett.Fragment.MovieSearchFragment;
-import com.example.moviett.TrendingFragment;
+import com.example.moviett.Fragment.TrendingFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
