@@ -1,5 +1,7 @@
 package com.example.moviett.ApiContainer;
 
+import android.graphics.Movie;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -23,4 +26,8 @@ public interface ApiService {
 
     @GET("home")
     Call<ListMovie> getHomeData(@Query("language") String language);
+
+    @GET("movie/{id}")
+    Call<Movie> getMovie(@Path("id") int id);
+
 }

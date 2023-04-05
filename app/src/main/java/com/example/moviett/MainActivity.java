@@ -9,14 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.example.moviett.Adapter.ViewPagerAdapter;
-import com.example.moviett.ApiContainer.MovieApi;
-import com.example.moviett.Fragment.MovieDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -117,10 +116,5 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Không", null)
                 .show();
-    }
-
-    public void goToMovieDetail() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mViewPager.setAdapter(adapter);
     }
 }

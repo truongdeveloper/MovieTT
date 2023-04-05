@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
-import com.example.moviett.Fragment.MovieDetailFragment;
 import com.example.moviett.Fragment.MovieSearchFragment;
 import com.example.moviett.Fragment.TrendingFragment;
 
@@ -27,8 +26,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 return new TrendingFragment();
             case 3:
                 return new ComingSoonFragment();
-            case 4:
-                return new MovieDetailFragment();
             default:
                 return new HomeFragment();
         }

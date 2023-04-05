@@ -15,8 +15,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
-import com.example.moviett.Fragment.ComingSoonFragment;
-import com.example.moviett.Fragment.MovieDetailFragment;
+import com.example.moviett.ApiMovieDetail.MovieDetail;
+import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,15 +26,13 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
     private Context mContext;
     private List<MovieApi> mListMovieApi;
-    private ItemClickListener mItemClickListener;
 
     public interface ItemClickListener {
         void onClick(View view, int position, boolean isLongClick);
     }
 
-    public ComingSoonAdapter(Context mContext, ItemClickListener itemClickListener) {
+    public ComingSoonAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mItemClickListener = itemClickListener;
     }
     public void setData(List<MovieApi> list) {
         this.mListMovieApi = list;
@@ -50,13 +48,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
     @Override
     public void onBindViewHolder(@NonNull ComingSoonViewHolder holder, int position) {
-//        ComingSoon comingSoon = mListComingSoon.get(position);
-//        if (comingSoon == null) {
-//            return;
-//        }
-//        holder.imgPosterFilm.setImageResource(comingSoon.getResourceId());
-//        holder.tvFilmName.setText(comingSoon.getNameFilm());
-//        holder.tvTrainerContent.setText(comingSoon.getContentFilm());
 
         MovieApi movie = mListMovieApi.get(position);
         // Lấy chuỗi ngày tháng năm
@@ -81,27 +72,18 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         holder.tvTitleDate.setText(date);
         holder.tvTitleMonth.setText(month);
         holder.tvYear.setText(year);
-        /*holder.setItemClickListener(new ItemClickListener() {
+        holder.tvFilmName.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (!isLongClick) {
-                    Toast.makeText(mContext, "Short"+ position, Toast.LENGTH_SHORT).show();
-                    Log.d("Short", "Short " + position);
-                } else {
-                    Toast.makeText(mContext, "Long"+ position, Toast.LENGTH_SHORT).show();
-                    Log.d("Long", "Long " + position);
-                }
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra("idMovie", String.valueOf(movie.getId()));
+                mContext.startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override
     public int getItemCount() {
-       /* if(mListComingSoon != null) {
-            return mListComingSoon.size();
-        }
-        return 0;*/
-
         if(mListMovieApi != null) {
             return mListMovieApi.size();
         }
@@ -110,7 +92,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         }
     }
 
-    public static class ComingSoonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+    public static class ComingSoonViewHolder extends RecyclerView.ViewHolder {
 
         // Khai báo thành phần trong item coming soon
         private ImageView imgPosterFilm;
@@ -122,7 +104,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         private TextView tvTitleMonth;
 
         private TextView tvYear;
-        private ItemClickListener itemClickListener;
         public ComingSoonViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -134,22 +115,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
             tvTitleDate = itemView.findViewById(R.id.tv_titleDate);
             tvTitleMonth = itemView.findViewById(R.id.tv_titleMonth);
             tvYear = itemView.findViewById(R.id.tv_year);
-
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-
-        public void setItemClickListener(ItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
-        }
-        @Override
-        public void onClick(View view) {
-            itemClickListener.onClick(view, getAdapterPosition(), false);
-        }
-        @Override
-        public boolean onLongClick(View view) {
-            itemClickListener.onClick(view, getAdapterPosition(), true);
-            return true;
         }
     }
 }

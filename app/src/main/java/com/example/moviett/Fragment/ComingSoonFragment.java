@@ -28,8 +28,6 @@ public class ComingSoonFragment extends Fragment {
     private RecyclerView mRcvComingSoon;
     private ListMovie mListMovie;
 
-    private MainActivity mMainActivity;
-
     public ComingSoonFragment() {
         // Required empty public constructor
     }
@@ -43,10 +41,6 @@ public class ComingSoonFragment extends Fragment {
 
         mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
-        /*ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
-        comingSoonAdapter.setData(getListComingSoon());
-        mRcvComingSoon.setAdapter(comingSoonAdapter);*/
-
         callApiComingSoon();
         return view;
     }
@@ -56,18 +50,11 @@ public class ComingSoonFragment extends Fragment {
             @Override
             public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                 //Log.i("Thong bao", "Success");
-                mListMovie = response.body();
-                ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(),
-                        new ComingSoonAdapter.ItemClickListener() {
-                            @Override
-                            public void onClick(View view, int position, boolean isLongClick) {
-
-                            }
-                        });
-                comingSoonAdapter.setData(mListMovie.getUpcoming());
-                mRcvComingSoon.setAdapter(comingSoonAdapter);
                 if (mListMovie != null && mListMovie.isSuccess()) {
-
+                    mListMovie = response.body();
+                    ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+                    comingSoonAdapter.setData(mListMovie.getUpcoming());
+                    mRcvComingSoon.setAdapter(comingSoonAdapter);
                 }
             }
 
