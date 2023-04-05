@@ -39,10 +39,14 @@ public class ComingSoonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_coming_soon, container, false);
-
         mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
-        mMainActivity = (MainActivity) getActivity();
-        mRcvComingSoon.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+
+        mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+
+        /*ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+        comingSoonAdapter.setData(getListComingSoon());
+        mRcvComingSoon.setAdapter(comingSoonAdapter);*/
+
         callApiComingSoon();
         return view;
     }
