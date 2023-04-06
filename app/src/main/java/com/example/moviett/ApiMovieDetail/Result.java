@@ -42,7 +42,7 @@ public class Result {
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return ("https://image.tmdb.org/t/p/w500" + backdrop_path);
     }
 
     public void setBackdrop_path(String backdrop_path) {
@@ -98,7 +98,7 @@ public class Result {
     }
 
     public String getPoster_path() {
-        return poster_path;
+        return ("https://image.tmdb.org/t/p/w500" + poster_path);
     }
 
     public void setPoster_path(String poster_path) {

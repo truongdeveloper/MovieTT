@@ -2,6 +2,7 @@ package com.example.moviett.ApiContainer;
 
 import android.graphics.Movie;
 
+import com.example.moviett.ApiMovieDetail.MovieDetail;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -28,6 +29,6 @@ public interface ApiService {
     Call<ListMovie> getHomeData(@Query("language") String language);
 
     @GET("movie/{id}")
-    Call<Movie> getMovie(@Path("id") int id);
+    Call<MovieDetail> getMovieDetail(@Path("id") int id);
 
 }

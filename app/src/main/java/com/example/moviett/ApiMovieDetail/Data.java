@@ -35,7 +35,7 @@ public class Data {
     }
 
     public String getBackdropPath() {
-        return backdropPath;
+        return ("https://image.tmdb.org/t/p/w500" + backdropPath);
     }
 
     public void setBackdropPath(String backdropPath) {

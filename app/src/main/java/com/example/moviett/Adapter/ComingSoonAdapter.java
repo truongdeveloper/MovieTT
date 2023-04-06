@@ -27,10 +27,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
     private Context mContext;
     private List<MovieApi> mListMovieApi;
 
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
-    }
-
     public ComingSoonAdapter(Context mContext) {
         this.mContext = mContext;
     }
@@ -76,7 +72,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra("idMovie", String.valueOf(movie.getId()));
+                intent.putExtra("idMovie", movie.getId());
                 mContext.startActivity(intent);
             }
         });

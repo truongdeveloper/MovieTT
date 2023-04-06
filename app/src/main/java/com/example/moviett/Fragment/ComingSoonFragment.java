@@ -46,22 +46,28 @@ public class ComingSoonFragment extends Fragment {
     }
 
     private void callApiComingSoon() {
-        ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
-            @Override
-            public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
-                //Log.i("Thong bao", "Success");
-                if (mListMovie != null && mListMovie.isSuccess()) {
+        try {
+            ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
+                @Override
+                public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                     mListMovie = response.body();
-                    ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
-                    comingSoonAdapter.setData(mListMovie.getUpcoming());
-                    mRcvComingSoon.setAdapter(comingSoonAdapter);
+                    if (mListMovie != null && mListMovie.isSuccess()) {
+                        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+                        comingSoonAdapter.setData(mListMovie.getUpcoming());
+                        mRcvComingSoon.setAdapter(comingSoonAdapter);
+                    }
+                    Log.i("Thong bao", "Success");
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ListMovie> call, Throwable t) {
-                Log.i("Thong bao", "False");
-            }
-        });
+                @Override
+                public void onFailure(Call<ListMovie> call, Throwable t) {
+                    Log.i("Thong bao", "False");
+                }
+            });
+        }
+        catch (Exception ex) {
+            Log.e("Error", ex.getMessage());
+        }
+
     }
 }

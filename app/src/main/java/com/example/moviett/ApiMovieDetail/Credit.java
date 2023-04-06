@@ -5,12 +5,10 @@ import java.util.List;
 public class Credit {
     private int id;
     private List<Cast> cast;
-    private List<Crew> crew;
 
-    public Credit(int id, List<Cast> cast, List<Crew> crew) {
+    public Credit(int id, List<Cast> cast) {
         this.id = id;
         this.cast = cast;
-        this.crew = crew;
     }
 
     public int getId() {
@@ -27,13 +25,5 @@ public class Credit {
 
     public void setCast(List<Cast> cast) {
         this.cast = cast;
-    }
-
-    public List<Crew> getCrew() {
-        return crew;
-    }
-
-    public void setCrew(List<Crew> crew) {
-        this.crew = crew;
     }
 }

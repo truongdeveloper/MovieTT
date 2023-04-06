@@ -1,6 +1,7 @@
 package com.example.moviett.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +50,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 .error(R.drawable.loading)
                 .into(holder.posterImg);
         holder.mTextView.setText(movie.getTitle());
+        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                intent.putExtra("idMovie", movie.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
