@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".Fragment.HomeFragment">
 
-
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -31,8 +30,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
-
-
 </FrameLayout>

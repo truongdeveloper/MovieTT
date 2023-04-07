@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.ApiMovieDetail.MovieDetail;
 import com.example.moviett.ApiMovieDetail.Result;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.ComingSoonViewHolder>{
     private Context mContext;
     private List<MovieApi> mListMovieApi;
+
     private ComingSoonAdapter.OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(MovieApi movie);

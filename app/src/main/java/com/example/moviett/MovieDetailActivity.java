@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moviett.Adapter.ComingSoonAdapter;
+import com.example.moviett.Adapter.MyAdapter;
 import com.example.moviett.Adapter.SimilarMovieAdapter;
+import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.ApiMovieDetail.Cast;
 import com.example.moviett.ApiMovieDetail.Credit;
 import com.example.moviett.ApiMovieDetail.Data;
