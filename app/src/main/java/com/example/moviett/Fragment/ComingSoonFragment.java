@@ -1,5 +1,6 @@
 package com.example.moviett.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.MainActivity;
+import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 
 import retrofit2.Call;
@@ -52,7 +54,14 @@ public class ComingSoonFragment extends Fragment {
                 public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                     mListMovie = response.body();
                     if (mListMovie != null && mListMovie.isSuccess()) {
-                        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity());
+                        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(), new ComingSoonAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(MovieApi movie) {
+                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                                intent.putExtra("idMovie", movie.getId());
+                                getActivity().startActivity(intent);
+                            }
+                        });
                         comingSoonAdapter.setData(mListMovie.getUpcoming());
                         mRcvComingSoon.setAdapter(comingSoonAdapter);
                     }

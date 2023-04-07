@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:text="Người sói Hugh Jackman vào vai người cha đang tìm cách chữa lành viết thương tâm lý của con trai khi cậu gặp vấn đề nghiêm trọng và không còn cảm thấy hứng thú với cuộc sống từ lúc cha mẹ ly dị."
                 android:textColor="@color/white"
-                android:maxLines="3"
+                android:maxLines="4"
                 android:ellipsize="end"
                 android:textSize="@dimen/textSize"
                 android:layout_marginTop="5dp"/>

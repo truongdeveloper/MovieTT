@@ -5,20 +5,26 @@ import static com.example.moviett.ApiContainer.ApiService.apiService;
 import static java.lang.System.in;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moviett.Adapter.ComingSoonAdapter;
+import com.example.moviett.Adapter.SimilarMovieAdapter;
 import com.example.moviett.ApiMovieDetail.Cast;
 import com.example.moviett.ApiMovieDetail.Credit;
 import com.example.moviett.ApiMovieDetail.Data;
 import com.example.moviett.ApiMovieDetail.Genres;
 import com.example.moviett.ApiMovieDetail.MovieDetail;
+import com.example.moviett.ApiMovieDetail.Result;
 import com.squareup.picasso.Picasso;
 
 import java.io.Console;
@@ -33,6 +39,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView imgBackdropImage;
     private TextView tvMovieTitle, tvIbm, tvGenre, tvReleaseDate, tvDescription, tvActors;
     private Button btnWatch;
+    private RecyclerView rcv_similarMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +54,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.movie_description);
         tvActors = findViewById(R.id.cast);
         btnWatch = findViewById(R.id.watch_movie_button);
+        rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollMovie);
+        scrollView.smoothScrollTo(0, 1000);
 
         Intent intent = getIntent();
         int idMovie = intent.getIntExtra("idMovie", 1);
+
+        rcv_similarMovie.setLayoutManager(new GridLayoutManager(MovieDetailActivity.this, 2));
 
         callApigetHome(idMovie);
     }
 
     public void callApigetHome(int idMovie) {
-        Call<MovieDetail> call = apiService.getMovieDetail(idMovie);
+        Call<MovieDetail> call = apiService.getMovieDetail(idMovie, "vn");
         call.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
@@ -89,6 +102,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                         actors += castList.get(i).getName() + ", ";
                     }
                     tvActors.setText(actors.substring(0, actors.length()-2));
+
+                    SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(Result similarMovie) {
+                            callApigetHome(similarMovie.getId());
+                        }
+                    });
+                    rcv_similarMovie.setAdapter(similarMovieAdapter);
                 }
             }
 

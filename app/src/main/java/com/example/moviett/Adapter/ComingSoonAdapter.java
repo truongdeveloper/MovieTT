@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.ApiMovieDetail.MovieDetail;
+import com.example.moviett.ApiMovieDetail.Result;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
@@ -26,9 +27,14 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
     private Context mContext;
     private List<MovieApi> mListMovieApi;
+    private ComingSoonAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener {
+        void onItemClick(MovieApi movie);
+    }
 
-    public ComingSoonAdapter(Context mContext) {
+    public ComingSoonAdapter(Context mContext, ComingSoonAdapter.OnItemClickListener listener) {
         this.mContext = mContext;
+        this.listener = (ComingSoonAdapter.OnItemClickListener) listener;
     }
     public void setData(List<MovieApi> list) {
         this.mListMovieApi = list;
@@ -68,12 +74,20 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         holder.tvTitleDate.setText(date);
         holder.tvTitleMonth.setText(month);
         holder.tvYear.setText(year);
-        holder.tvFilmName.setOnClickListener(new View.OnClickListener() {
+//        holder.tvFilmName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+//                intent.putExtra("idMovie", movie.getId());
+//                mContext.startActivity(intent);
+//            }
+//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra("idMovie", movie.getId());
-                mContext.startActivity(intent);
+                if (listener != null) {
+                    listener.onItemClick(movie);
+                }
             }
         });
     }
