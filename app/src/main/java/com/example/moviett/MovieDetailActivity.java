@@ -40,6 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvIbm, tvGenre, tvReleaseDate, tvDescription, tvActors;
     private Button btnWatch;
     private RecyclerView rcv_similarMovie;
+    ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvActors = findViewById(R.id.cast);
         btnWatch = findViewById(R.id.watch_movie_button);
         rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
-
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollMovie);
-        scrollView.smoothScrollTo(0, 1000);
 
         Intent intent = getIntent();
         int idMovie = intent.getIntExtra("idMovie", 1);
@@ -107,6 +105,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(Result similarMovie) {
                             callApigetHome(similarMovie.getId());
+                            scrollView = (ScrollView) findViewById(R.id.scrollMovie);
+                            scrollView.smoothScrollTo(0, 0);
                         }
                     });
                     rcv_similarMovie.setAdapter(similarMovieAdapter);

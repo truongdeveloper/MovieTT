@@ -42,7 +42,6 @@ public class ComingSoonFragment extends Fragment {
         mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
 
         mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-
         callApiComingSoon();
         return view;
     }

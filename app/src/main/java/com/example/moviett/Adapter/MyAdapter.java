@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.ApiMovieDetail.Result;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
@@ -22,9 +23,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context mContext;
 //    private List<Movie> mListMovie;
     private List<MovieApi> mListMovieApi;
+    private MyAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener {
+        void onItemClick(MovieApi movieApi);
+    }
 
-    public MyAdapter(Context mContext) {
+    public MyAdapter(Context mContext, MyAdapter.OnItemClickListener listener) {
         this.mContext = mContext;
+        this.listener = listener;
     }
 
     public void setData(List<MovieApi> movie) {
@@ -50,12 +56,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 .error(R.drawable.loading)
                 .into(holder.posterImg);
         holder.mTextView.setText(movie.getTitle());
-        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra("idMovie", movie.getId());
-                mContext.startActivity(intent);
+                if (listener != null) {
+                    listener.onItemClick(movie);
+                }
             }
         });
     }
@@ -71,10 +77,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         public TextView mTextView;
         public ImageView posterImg;
-
         public ViewHolder(View itemView) {
             super(itemView);
             posterImg = itemView.findViewById(R.id.movie_cover_image);

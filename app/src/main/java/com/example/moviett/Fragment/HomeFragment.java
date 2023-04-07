@@ -1,12 +1,12 @@
 package com.example.moviett.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,8 @@ import com.example.moviett.Adapter.MyAdapter;
 import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.ApiMovieDetail.Result;
+import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 
 import retrofit2.Call;
@@ -43,11 +45,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         //Slider Image
         imageSlider = view.findViewById(R.id.image_slider);
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
-
 
         //Setup layout cho RecycleView
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -61,7 +61,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                 mListMovie = response.body();
-                MyAdapter movieAdapter = new MyAdapter(getActivity());
+                MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(MovieApi movieApi) {
+                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                        intent.putExtra("idMovie", movieApi.getId());
+                        getActivity().startActivity(intent);
+                    }
+                });
                 movieAdapter.setData(mListMovie.getTopRatedMovies());
                 mRecyclerView.setAdapter(movieAdapter);
 

@@ -24,7 +24,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.ComingSoonViewHolder>{
-
     private Context mContext;
     private List<MovieApi> mListMovieApi;
     private ComingSoonAdapter.OnItemClickListener listener;
@@ -50,7 +49,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
     @Override
     public void onBindViewHolder(@NonNull ComingSoonViewHolder holder, int position) {
-
         MovieApi movie = mListMovieApi.get(position);
         // Lấy chuỗi ngày tháng năm
         String[] release = movie.getReleaseDate().split("-");
@@ -74,14 +72,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         holder.tvTitleDate.setText(date);
         holder.tvTitleMonth.setText(month);
         holder.tvYear.setText(year);
-//        holder.tvFilmName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-//                intent.putExtra("idMovie", movie.getId());
-//                mContext.startActivity(intent);
-//            }
-//        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +98,6 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         private ImageView imgPosterFilm;
         private TextView tvFilmName;
         private TextView tvTrainerContent;
-
         private TextView tvTypeFilm;
         private TextView tvTitleDate;
         private TextView tvTitleMonth;
@@ -117,7 +106,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         public ComingSoonViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            thực hiện ánh xạ view
+//          thực hiện ánh xạ view
             imgPosterFilm = itemView.findViewById(R.id.img_posterFilm);
             tvFilmName = itemView.findViewById(R.id.tv_filmName);
             tvTrainerContent = itemView.findViewById(R.id.tv_trainerContent);
