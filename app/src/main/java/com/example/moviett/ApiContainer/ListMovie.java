@@ -1,9 +1,10 @@
 package com.example.moviett.ApiContainer;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ListMovie {
+public class ListMovie implements Serializable {
 
     private boolean success;
     private List<MovieApi> trandingMovies;

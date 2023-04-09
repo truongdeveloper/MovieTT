@@ -4,12 +4,14 @@ import static com.example.moviett.ApiContainer.ApiService.apiService;
 
 import static java.lang.System.in;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,6 +52,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+
+        // Thêm nút back
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        //Chuyển Actioon bar thành Chi tiết phim
+        actionBar.setTitle("Chi tiết phim");
 
         imgBackdropImage = findViewById(R.id.backdrop_image);
         tvMovieTitle = findViewById(R.id.movie_title);
@@ -123,6 +134,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Toast.makeText(MovieDetailActivity.this, "Không lấy được dữ liệu", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

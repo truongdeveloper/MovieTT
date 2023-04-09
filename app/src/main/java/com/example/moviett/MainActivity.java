@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Movie;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,15 +17,26 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.moviett.Adapter.ViewPagerAdapter;
+import com.example.moviett.ApiContainer.ApiService;
+import com.example.moviett.ApiContainer.ListMovie;
+import com.example.moviett.Fragment.ComingSoonFragment;
+import com.example.moviett.Fragment.HomeFragment;
+import com.example.moviett.Fragment.TrendingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.Serializable;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private BottomNavigationView mBottomNavigationView;
+
+    public ListMovie mListMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +54,19 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Trang chủ");
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mViewPager.setAdapter(adapter);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("mListMovie")) {
+            mListMovie = (ListMovie) intent.getSerializableExtra("mListMovie");
+        }
+        TrendingFragment trendingfragment = TrendingFragment.getInstance();
+        trendingfragment.setListMovie(mListMovie);
+        HomeFragment homeFragment = HomeFragment.getInstance();
+        homeFragment.setListMovie(mListMovie);
+        ComingSoonFragment comingSoonFragment = ComingSoonFragment.getInstance();
+        comingSoonFragment.setListMovie(mListMovie);
 
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mListMovie);
+        mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -101,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
     }
     @Override

@@ -30,44 +30,61 @@ import retrofit2.Response;
 public class TrendingFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ListMovie mListMovie;
-    public TrendingFragment() {
-        // Required empty public constructor
-    }
+    private static ListMovie mListMovie;
 
+    public void setListMovie(ListMovie listMovie) {
+        this.mListMovie = listMovie;
+    }
+    public static TrendingFragment getInstance() {
+        TrendingFragment trendingFragment = new TrendingFragment();
+        return trendingFragment;
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle save) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trending, container, false);
         recyclerView = view.findViewById(R.id.rcv_trendingMovie);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        callApigetHome();
+        if (mListMovie != null) {
+            MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(MovieApi movieApi) {
+                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    intent.putExtra("idMovie", movieApi.getId());
+                    getActivity().startActivity(intent);
+                }
+            });
+            movieAdapter.setData(mListMovie.getTrandingMovies());
+            recyclerView.setAdapter(movieAdapter);
+        }
+
+//        callApigetHome();
         return view;
     }
 
-    public void callApigetHome() {
-        ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
-            @Override
-            public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
-                mListMovie = response.body();
-                MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(MovieApi movieApi) {
-                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                        intent.putExtra("idMovie", movieApi.getId());
-                        getActivity().startActivity(intent);
-                    }
-                });
-                movieAdapter.setData(mListMovie.getTopRatedMovies());
-                recyclerView.setAdapter(movieAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<ListMovie> call, Throwable t) {
-                Toast.makeText(getActivity(), "Không lấy được dữ liệu má ơi", Toast.LENGTH_LONG).show();
-
-            }
-        });
-    }
+//    public void callApigetHome() {
+//        ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
+//            @Override
+//            public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
+//                mListMovie = response.body();
+//                MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(MovieApi movieApi) {
+//                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+//                        intent.putExtra("idMovie", movieApi.getId());
+//                        getActivity().startActivity(intent);
+//                    }
+//                });
+//                movieAdapter.setData(mListMovie.getTrandingMovies());
+//                recyclerView.setAdapter(movieAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ListMovie> call, Throwable t) {
+//                Toast.makeText(getActivity(), "Không lấy được dữ liệu má ơi", Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//    }
 }
