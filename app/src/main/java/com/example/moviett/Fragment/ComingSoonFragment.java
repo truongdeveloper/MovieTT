@@ -30,8 +30,14 @@ public class ComingSoonFragment extends Fragment {
     private RecyclerView mRcvComingSoon;
     private ListMovie mListMovie;
 
-    public ComingSoonFragment() {
-        // Required empty public constructor
+
+    public void setListMovie(ListMovie listMovie) {
+        this.mListMovie = listMovie;
+    }
+
+    public static ComingSoonFragment getInstance() {
+        ComingSoonFragment comingSoonFragment = new ComingSoonFragment();
+        return comingSoonFragment;
     }
 
     @Override
@@ -42,40 +48,53 @@ public class ComingSoonFragment extends Fragment {
         mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
 
         mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        callApiComingSoon();
+
+        if (mListMovie != null) {
+            ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(), new ComingSoonAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(MovieApi movie) {
+                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    intent.putExtra("idMovie", movie.getId());
+                    getActivity().startActivity(intent);
+                }
+            });
+            comingSoonAdapter.setData(mListMovie.getUpcoming());
+            mRcvComingSoon.setAdapter(comingSoonAdapter);
+        }
+//        callApiComingSoon();
         return view;
     }
 
-    private void callApiComingSoon() {
-        try {
-            ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
-                @Override
-                public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
-                    mListMovie = response.body();
-                    if (mListMovie != null && mListMovie.isSuccess()) {
-                        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(), new ComingSoonAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(MovieApi movie) {
-                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("idMovie", movie.getId());
-                                getActivity().startActivity(intent);
-                            }
-                        });
-                        comingSoonAdapter.setData(mListMovie.getUpcoming());
-                        mRcvComingSoon.setAdapter(comingSoonAdapter);
-                    }
-                    Log.i("Thong bao", "Success");
-                }
-
-                @Override
-                public void onFailure(Call<ListMovie> call, Throwable t) {
-                    Log.i("Thong bao", "False");
-                }
-            });
-        }
-        catch (Exception ex) {
-            Log.e("Error", ex.getMessage());
-        }
-
-    }
+//    private void callApiComingSoon() {
+//        try {
+//            ApiService.apiService.getHomeData("en").enqueue(new Callback<ListMovie>() {
+//                @Override
+//                public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
+//                    mListMovie = response.body();
+//                    if (mListMovie != null && mListMovie.isSuccess()) {
+//                        ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(), new ComingSoonAdapter.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(MovieApi movie) {
+//                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+//                                intent.putExtra("idMovie", movie.getId());
+//                                getActivity().startActivity(intent);
+//                            }
+//                        });
+//                        comingSoonAdapter.setData(mListMovie.getUpcoming());
+//                        mRcvComingSoon.setAdapter(comingSoonAdapter);
+//                    }
+//                    Log.i("Thong bao", "Success");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ListMovie> call, Throwable t) {
+//                    Log.i("Thong bao", "False");
+//                }
+//            });
+//        }
+//        catch (Exception ex) {
+//            Log.e("Error", ex.getMessage());
+//        }
+//
+//    }
 }
