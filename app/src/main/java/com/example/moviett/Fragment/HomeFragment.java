@@ -34,7 +34,6 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
     private ListMovie mListMovie;
     ImageSlider imageSlider;
     List<MovieApi> mMovieApi = new ArrayList<>();

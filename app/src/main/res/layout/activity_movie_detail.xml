@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +8,7 @@
     android:background="@color/black_overlay"
     tools:context=".MovieDetailActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollMovie"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -183,7 +182,7 @@
                 android:layout_marginBottom="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

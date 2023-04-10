@@ -68,9 +68,17 @@ public class MovieSearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Xử lý khi nhập liệu vào ô tìm kiếm
+                callApiSearchMovie(newText);
                 return false;
             }
         });
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.clearFocus();
+            }
+        });
+
 
         mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
