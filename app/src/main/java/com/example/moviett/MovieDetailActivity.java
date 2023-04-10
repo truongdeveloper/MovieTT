@@ -82,7 +82,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public void callApigetHome(int idMovie) {
 
-        Call<MovieDetail> call = apiService.getMovieDetail(idMovie, "vn");
+        Call<MovieDetail> call = apiService.getMovieDetail(idMovie, "vi");
         call.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {

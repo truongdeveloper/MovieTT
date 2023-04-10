@@ -70,7 +70,7 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
         holder.tvFilmName.setText(movie.getTitle());
         holder.tvTrainerContent.setText(movie.getOverview());
-        holder.tvTypeFilm.setText(movie.getMediaType());
+//        holder.tvTypeFilm.setText(movie.getMediaType());
         holder.tvTitleDate.setText(date);
         holder.tvTitleMonth.setText(month);
         holder.tvYear.setText(year);

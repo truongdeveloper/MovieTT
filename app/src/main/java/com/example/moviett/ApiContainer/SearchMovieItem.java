@@ -1,6 +1,6 @@
-package com.example.moviett.ApiMovieDetail;
+package com.example.moviett.ApiContainer;
 
-public class Result {
+public class SearchMovieItem {
     private boolean adult;
     private String backdrop_path;
     private int[] genre_ids;
@@ -16,7 +16,7 @@ public class Result {
     private float vote_average;
     private int vote_count;
 
-    public Result(boolean adult, String backdrop_path, int[] genre_ids, int id, String original_language, String original_title, String overview, float popularity, String poster_path, String release_date, String title, boolean video, float vote_average, int vote_count) {
+    public SearchMovieItem(boolean adult, String backdrop_path, int[] genre_ids, int id, String original_language, String original_title, String overview, float popularity, String poster_path, String release_date, String title, boolean video, float vote_average, int vote_count) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
         this.genre_ids = genre_ids;
@@ -42,7 +42,7 @@ public class Result {
     }
 
     public String getBackdrop_path() {
-        return ("https://image.tmdb.org/t/p/original" + backdrop_path);
+        return backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {
