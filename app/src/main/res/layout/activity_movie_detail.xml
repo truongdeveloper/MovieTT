@@ -21,8 +21,7 @@
                 android:id="@+id/backdrop_image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/poster_1" />
+                android:scaleType="centerCrop" />
 
             <!-- Movie Title -->
             <TextView
@@ -47,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="IBN: "
+                    android:text="IBM: "
                     android:textColor="#D6D5D5" />
                 <TextView
                     android:id="@+id/ibm"

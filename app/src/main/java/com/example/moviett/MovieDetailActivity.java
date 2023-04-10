@@ -30,6 +30,7 @@ import com.example.moviett.ApiMovieDetail.Result;
 import com.squareup.picasso.Picasso;
 
 import java.io.Console;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,6 +44,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private Button btnWatch;
     private RecyclerView rcv_similarMovie;
     ScrollView scrollView;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     public void callApigetHome(int idMovie) {
+
         Call<MovieDetail> call = apiService.getMovieDetail(idMovie, "vn");
         call.enqueue(new Callback<MovieDetail>() {
             @Override
@@ -80,7 +83,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                             .error(R.drawable.loading)
                             .into(imgBackdropImage);
                     tvMovieTitle.setText(movie.getData().getTitle());
-                    tvIbm.setText("Ibm");
+                    tvIbm.setText(String.valueOf(df.format(movie.getData().getVote_average())));
                     // Thể loại phim
                     String genre = "";
                     List<Genres> genres = movie.getData().getGenres();
