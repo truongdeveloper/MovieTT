@@ -10,10 +10,13 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -47,6 +50,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private Button btnWatch;
     private RecyclerView rcv_similarMovie;
     NestedScrollView scrollView;
+    WebView webView;
     DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
@@ -77,6 +81,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         int idMovie = intent.getIntExtra("idMovie", 1);
 
         rcv_similarMovie.setLayoutManager(new GridLayoutManager(MovieDetailActivity.this, 2));
+
+        webView = (WebView) findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+
 
         callApigetHome(idMovie);
     }
@@ -123,6 +131,12 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if(actors.length() > 2){
                         tvActors.setText(actors.substring(0, actors.length()-2));
                     }
+                    //Hiện Trailer Film
+                    if(movie.getVideos().getResults().get(0).getKey() !=null){
+                        String videoId = movie.getVideos().getResults().get(0).getKey();
+                        String html = String.format("<html ><body style=\"background-color:\"#0000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
+                        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+                    }
 
 
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
@@ -134,6 +148,26 @@ public class MovieDetailActivity extends AppCompatActivity {
                         }
                     });
                     rcv_similarMovie.setAdapter(similarMovieAdapter);
+
+                    btnWatch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Dialog dialog = new Dialog(MovieDetailActivity.this);
+                            dialog.setContentView(R.layout.dialog_watch_movie);
+
+                            WebView webViewMovie = dialog.findViewById(R.id.webViewMovie);
+                            webViewMovie.getSettings().setJavaScriptEnabled(true);
+                            webViewMovie.getSettings().setDomStorageEnabled(true);
+                            webViewMovie.getSettings().setAllowFileAccess(true);
+                            webViewMovie.getSettings().setAllowContentAccess(true);
+                            webViewMovie.getSettings().setAllowFileAccessFromFileURLs(true);
+                            webViewMovie.getSettings().setAllowUniversalAccessFromFileURLs(true);
+                            webViewMovie.getSettings().setMediaPlaybackRequiresUserGesture(false);
+                            webViewMovie.loadUrl("https://www.2embed.to/embed/tmdb/movie?id=19995");
+
+                            dialog.show();
+                        }
+                    });
                 }
             }
 

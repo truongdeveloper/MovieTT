@@ -159,6 +159,12 @@
                 android:text="Trailer"
                 android:textColor="@color/white" />
 
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
             <!-- Similar Movies -->
 
             <!-- RecyclerView for Similar Movies -->
