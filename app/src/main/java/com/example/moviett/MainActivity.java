@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import com.example.moviett.Adapter.ViewPagerAdapter;
 import com.example.moviett.ApiContainer.ApiService;
 import com.example.moviett.ApiContainer.ListMovie;
+import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
 import com.example.moviett.Fragment.TrendingFragment;
@@ -54,16 +55,20 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Trang chủ");
 
+        // Lấy dữ liệu từ SplashActivity gửi sang
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("mListMovie")) {
             mListMovie = (ListMovie) intent.getSerializableExtra("mListMovie");
         }
+        // Từng fragment nhận dữ liệu
         TrendingFragment trendingfragment = TrendingFragment.getInstance();
         trendingfragment.setListMovie(mListMovie);
         HomeFragment homeFragment = HomeFragment.getInstance();
         homeFragment.setListMovie(mListMovie);
         ComingSoonFragment comingSoonFragment = ComingSoonFragment.getInstance();
         comingSoonFragment.setListMovie(mListMovie);
+        CinemaFragment cinemaFragment = CinemaFragment.getInstance();
+        cinemaFragment.setListMovie(mListMovie);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mListMovie);
         mViewPager.setAdapter(adapter);

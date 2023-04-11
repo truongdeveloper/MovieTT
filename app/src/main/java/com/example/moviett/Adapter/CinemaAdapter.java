@@ -1,36 +1,34 @@
 package com.example.moviett.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
-import com.example.moviett.ApiMovieDetail.Result;
-import com.example.moviett.MovieDetailActivity;
+import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-
+public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder> {
     private Context mContext;
     private List<MovieApi> mListMovieApi;
-    private MyAdapter.OnItemClickListener listener;
+
+    private CinemaAdapter.OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(MovieApi movieApi);
     }
 
-    public MyAdapter(Context mContext, MyAdapter.OnItemClickListener listener) {
+    public CinemaAdapter(Context mContext, List<MovieApi> mListMovieApi) {
         this.mContext = mContext;
-        this.listener = listener;
+        this.mListMovieApi = mListMovieApi;
     }
 
     public void setData(List<MovieApi> movie) {
@@ -38,14 +36,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_film, parent, false);
-        return new ViewHolder(view);
+        return new CinemaAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MovieApi movie = mListMovieApi.get(position);
         if(movie == null) {
             return ;
@@ -75,8 +74,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             return 0;
         }
     }
-
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;

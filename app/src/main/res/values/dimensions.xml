@@ -6,4 +6,7 @@
     <dimen name="textTitle1">18sp</dimen>
     <dimen name="textTitle2">17sp</dimen>
     <dimen name="textSmall">14sp</dimen>
+<!--    Kích thướng-->
+        <!-- Khoảng cách giữa các item -->
+    <dimen name="item_offset">16dp</dimen>
 </resources>
