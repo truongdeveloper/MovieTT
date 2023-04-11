@@ -163,7 +163,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                             webViewMovie.getSettings().setAllowFileAccessFromFileURLs(true);
                             webViewMovie.getSettings().setAllowUniversalAccessFromFileURLs(true);
                             webViewMovie.getSettings().setMediaPlaybackRequiresUserGesture(false);
-                            webViewMovie.loadUrl("https://www.2embed.to/embed/tmdb/movie?id=19995");
+                            webViewMovie.loadUrl("https://www.2embed.to/embed/tmdb/movie?id=" + movie.getData().getId());
 
                             dialog.show();
                         }
