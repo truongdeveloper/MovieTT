@@ -3,27 +3,20 @@ package com.example.moviett.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviett.Adapter.CinemaAdapter;
 import com.example.moviett.Adapter.MyAdapter;
-import com.example.moviett.Adapter.ViewCinemaAdapter;
 import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class CinemaFragment extends Fragment {
 
@@ -62,7 +55,7 @@ public class CinemaFragment extends Fragment {
 
     public void getNowCinema() {
         if (mListMovie != null) {
-            MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+            CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
                     Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
@@ -70,14 +63,14 @@ public class CinemaFragment extends Fragment {
                     getActivity().startActivity(intent);
                 }
             });
-            movieAdapter.setData(mListMovie.getNowPlayingMovies());
-            mRcvNowCinema.setAdapter(movieAdapter);
+            cinemaAdapter.setData(mListMovie.getNowPlayingMovies());
+            mRcvNowCinema.setAdapter(cinemaAdapter);
         }
     }
 
     public void getUpcomingCinema() {
         if (mListMovie != null) {
-            MyAdapter movieAdapter = new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+            CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
                     Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
@@ -85,8 +78,8 @@ public class CinemaFragment extends Fragment {
                     getActivity().startActivity(intent);
                 }
             });
-            movieAdapter.setData(mListMovie.getUpcoming());
-            mRcvUpcomingCinema.setAdapter(movieAdapter);
+            cinemaAdapter.setData(mListMovie.getUpcoming());
+            mRcvUpcomingCinema.setAdapter(cinemaAdapter);
         }
     }
 }

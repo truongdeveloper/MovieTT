@@ -138,7 +138,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                         webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
                     }
 
-
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Result similarMovie) {

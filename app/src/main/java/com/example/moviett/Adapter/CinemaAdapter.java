@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviett.ApiContainer.MovieApi;
-import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,9 +25,9 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder
         void onItemClick(MovieApi movieApi);
     }
 
-    public CinemaAdapter(Context mContext, List<MovieApi> mListMovieApi) {
+    public CinemaAdapter(Context mContext, OnItemClickListener mListMovieApi) {
         this.mContext = mContext;
-        this.mListMovieApi = mListMovieApi;
+        this.listener = mListMovieApi;
     }
 
     public void setData(List<MovieApi> movie) {
@@ -39,7 +38,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_film, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cinema, parent, false);
         return new CinemaAdapter.ViewHolder(view);
     }
 
