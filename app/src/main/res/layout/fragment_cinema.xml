@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".Fragment.CinemaFragment"
+    android:weightSum="2">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpCinema"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topNavCinema"
+        android:contentDescription="null"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/topNavCinema"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        tool:menu="@menu/navigation_cinema"
+        tool:itemTextColor="@color/black"
+        tool:itemIconTint="@color/black" />
+</RelativeLayout>

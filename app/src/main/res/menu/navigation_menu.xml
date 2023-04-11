@@ -16,4 +16,8 @@
         android:id="@+id/navigation_coming"
         android:icon="@drawable/ic_calender"
         android:title="@string/settings" />
+    <item
+        android:id="@+id/navigation_cinema"
+        android:icon="@drawable/film"
+        android:title="Cinema" />
 </menu>
