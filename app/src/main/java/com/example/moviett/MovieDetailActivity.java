@@ -6,6 +6,7 @@ import static java.lang.System.in;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,7 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvIbm, tvGenre, tvReleaseDate, tvDescription, tvActors;
     private Button btnWatch;
     private RecyclerView rcv_similarMovie;
-    ScrollView scrollView;
+    NestedScrollView scrollView;
     DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
@@ -102,10 +103,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                     for(int i = 0; i < lengthGenre; i++) {
                         genre += genres.get(i).getName() + ", ";
                     }
-                    tvGenre.setText(genre.substring(0, genre.length()-2));
+                    if(genre.length() > 2){
+                        tvGenre.setText(genre.substring(0, genre.length()-2));
+                    }
                     // Ngày phát hành
                     String[] release = movie.getData().getRelease_date().split("-");
-                    tvReleaseDate.setText(release[2]+"-"+release[1]+"-"+release[0]);
+                    if(release.length > 1){
+                        tvReleaseDate.setText(release[2]+"-"+release[1]+"-"+release[0]);
+                    }
                     // Mô tả ngắn
                     tvDescription.setText(movie.getData().getOverview());
                     // Diễn viên
@@ -115,13 +120,16 @@ public class MovieDetailActivity extends AppCompatActivity {
                     for(int i = 0; i < lengthActor; i++) {
                         actors += castList.get(i).getName() + ", ";
                     }
-                    tvActors.setText(actors.substring(0, actors.length()-2));
+                    if(actors.length() > 2){
+                        tvActors.setText(actors.substring(0, actors.length()-2));
+                    }
+
 
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Result similarMovie) {
                             callApigetHome(similarMovie.getId());
-                            scrollView = (ScrollView) findViewById(R.id.scrollMovie);
+                            scrollView = findViewById(R.id.scrollMovie);
                             scrollView.smoothScrollTo(0, 0);
                         }
                     });
@@ -131,7 +139,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieDetail> call, Throwable t) {
-                Toast.makeText(MovieDetailActivity.this, "Không lấy được dữ liệu", Toast.LENGTH_LONG).show();
+                Toast.makeText(MovieDetailActivity.this, "Có thể dữ liệu phim đã bị xoá khỏi Database", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
