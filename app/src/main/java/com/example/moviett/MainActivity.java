@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_coming).setChecked(true);
                         actionBar.setTitle("Sắp ra mắt");
                         break;
+                    case 4:
+                        mBottomNavigationView.getMenu().findItem(R.id.navigation_cinema).setChecked(true);
+                        actionBar.setTitle("Phim chiếu rạp");
+                        break;
                 }
             }
             @Override
@@ -118,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_coming:
                         mViewPager.setCurrentItem(3);
                         actionBar.setTitle("Sắp ra mắt");
+                        break;
+                    case R.id.navigation_cinema:
+                        mViewPager.setCurrentItem(4);
+                        actionBar.setTitle("Phim chiếu rạp");
                         break;
                 }
                 return true;
