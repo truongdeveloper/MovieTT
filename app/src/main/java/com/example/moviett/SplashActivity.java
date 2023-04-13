@@ -1,5 +1,6 @@
 package com.example.moviett;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.MovieDetailActivity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
@@ -52,7 +54,23 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ListMovie> call, Throwable t) {
-                Toast.makeText(SplashActivity.this, "Không lấy được dữ liệu má ơi", Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(SplashActivity.this)
+                        .setTitle("Thông báo")
+                        .setMessage("Không lấy được dữ liệu, vui lòng kiểm tra mạng mẹo có ổn không?")
+                        .setPositiveButton("Load lại", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                recreate();
+                            }
+                        })
+                        .setNegativeButton("Thoát ứng dụng", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .show();
+                SplashActivity.super.onPause();
             }
         });
         //Thời gian Loading

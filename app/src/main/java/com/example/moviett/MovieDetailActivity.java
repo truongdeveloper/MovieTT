@@ -6,6 +6,8 @@ import static java.lang.System.in;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -132,7 +135,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                         tvActors.setText(actors.substring(0, actors.length()-2));
                     }
                     //Hiện Trailer Film
-                    if(movie.getVideos().getResults().get(0).getKey() !=null){
+                    if(!movie.getVideos().getResults().isEmpty()){
                         String videoId = movie.getVideos().getResults().get(0).getKey();
                         String html = String.format("<html ><body style=\"background-color:\"#0000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
                         webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
@@ -152,7 +155,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                     btnWatch.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
                             Dialog dialog = new Dialog(MovieDetailActivity.this);
+                            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+                            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                            dialog.getWindow().setAttributes(layoutParams);
                             dialog.setContentView(R.layout.dialog_watch_movie);
 
                             WebView webViewMovie = dialog.findViewById(R.id.webViewMovie);
