@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="IBM: "
+                    android:text="Điểm xếp hạng: "
                     android:textColor="#D6D5D5" />
                 <TextView
                     android:id="@+id/ibm"
@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Genre: "
+                    android:text="Thể Loại: "
                     android:textSize="16sp"
                     android:textColor="#D6D5D5" />
                 <TextView
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="Release date: "
+                    android:text="Ngày ra mắt: "
                     android:textColor="#D6D5D5" />
                 <TextView
                     android:id="@+id/release_date"
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="Actors: "
+                    android:text="Diễn viên: "
                     android:textColor="#D6D5D5" />
                 <TextView
                     android:id="@+id/cast"
@@ -145,7 +145,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Watch Movie" />
+                android:text="Xem Phim" />
 
             <!-- Trailer -->
             <TextView
@@ -155,9 +155,15 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="12dp"
                 android:textSize="16sp"
-                android:text="Trailer"
+                android:text="Đoạn Giới thiệu"
+                android:textStyle="bold"
                 android:textColor="@color/white" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@color/grey" />-->
 
             <WebView
                 android:id="@+id/webview"
@@ -175,10 +181,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Similar Movies"
+                android:text="Phim tương tự"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="17sp" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@color/grey" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_similar_movies"

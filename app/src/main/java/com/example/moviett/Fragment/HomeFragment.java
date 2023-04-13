@@ -1,5 +1,6 @@
 package com.example.moviett.Fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.ApiMovieDetail.Result;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,6 +69,32 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("idMovie", movieApi.getId());
                     getActivity().startActivity(intent);
                 }
+            }, new MyAdapter.OnItemLongClickListener() {
+                @Override
+                public void onItemLongClick(MovieApi movieApi) {
+                    final Dialog dialog = new Dialog(getContext());
+                    dialog.setContentView(R.layout.quick_view_dialog);
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+// Lấy view cho hình ảnh, tên, ngày phát hành và mô tả ngắn
+                    ImageView backdropImage = dialog.findViewById(R.id.dialog_backdrop_image);
+                    TextView movieTitle = dialog.findViewById(R.id.dialog_movie_title);
+                    TextView releaseDate = dialog.findViewById(R.id.dialog_release_date);
+                    TextView overview = dialog.findViewById(R.id.dialog_overview);
+
+// Thiết lập hình ảnh, tên, ngày phát hành và mô tả ngắn cho các view
+                    Picasso.get()
+                            .load(movieApi.getBackdropPath())
+                            .placeholder(R.drawable.loadinganimation)
+                            .into(backdropImage);
+
+                    movieTitle.setText(movieApi.getTitle());
+                    releaseDate.setText(movieApi.getReleaseDate());
+                    overview.setText(movieApi.getOverview());
+
+// Hiển thị dialog
+                    dialog.show();
+                }
+
             });
             movieAdapter.setData(mListMovie.getTopRatedMovies());
             mRecyclerView.setAdapter(movieAdapter);

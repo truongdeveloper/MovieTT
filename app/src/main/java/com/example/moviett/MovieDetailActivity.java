@@ -54,6 +54,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView rcv_similarMovie;
     NestedScrollView scrollView;
     WebView webView;
+    public int idMovie;
     DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
@@ -81,7 +82,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
 
         Intent intent = getIntent();
-        int idMovie = intent.getIntExtra("idMovie", 1);
+        idMovie = intent.getIntExtra("idMovie", 1);
 
         rcv_similarMovie.setLayoutManager(new GridLayoutManager(MovieDetailActivity.this, 2));
 
@@ -153,28 +154,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                     rcv_similarMovie.setAdapter(similarMovieAdapter);
 
                     btnWatch.setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View view) {
 
-                            Dialog dialog = new Dialog(MovieDetailActivity.this);
-                            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                            layoutParams.copyFrom(dialog.getWindow().getAttributes());
-                            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-                            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                            dialog.getWindow().setAttributes(layoutParams);
-                            dialog.setContentView(R.layout.dialog_watch_movie);
-
-                            WebView webViewMovie = dialog.findViewById(R.id.webViewMovie);
-                            webViewMovie.getSettings().setJavaScriptEnabled(true);
-                            webViewMovie.getSettings().setDomStorageEnabled(true);
-                            webViewMovie.getSettings().setAllowFileAccess(true);
-                            webViewMovie.getSettings().setAllowContentAccess(true);
-                            webViewMovie.getSettings().setAllowFileAccessFromFileURLs(true);
-                            webViewMovie.getSettings().setAllowUniversalAccessFromFileURLs(true);
-                            webViewMovie.getSettings().setMediaPlaybackRequiresUserGesture(false);
-                            webViewMovie.loadUrl("https://www.2embed.to/embed/tmdb/movie?id=" + movie.getData().getId());
-
-                            dialog.show();
+                            Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
+                            intent.putExtra("idMovie", movie.getData().getId());
+                            startActivity(intent);
                         }
                     });
                 }
