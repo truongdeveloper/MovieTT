@@ -10,6 +10,19 @@ public class MovieDetail {
     private Credit credits;
     private Similar similar;
 
+    private Videos videos;
+
+    public Videos getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Videos videos) {
+        this.videos = videos;
+    }
+    public MovieDetail(Videos videos) {
+        this.videos = videos;
+    }
+
     public MovieDetail(boolean success, Data data, Credit credits, Similar similar) {
         this.success = success;
         this.data = data;

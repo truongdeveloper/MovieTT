@@ -54,6 +54,13 @@ public class TrendingFragment extends Fragment {
                     intent.putExtra("idMovie", movieApi.getId());
                     getActivity().startActivity(intent);
                 }
+            }, new MyAdapter.OnItemLongClickListener() {
+                @Override
+                public void onItemLongClick(MovieApi movieApi) {
+                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    intent.putExtra("idMovie", movieApi.getId());
+                    getActivity().startActivity(intent);
+                }
             });
             movieAdapter.setData(mListMovie.getTrandingMovies());
             recyclerView.setAdapter(movieAdapter);
