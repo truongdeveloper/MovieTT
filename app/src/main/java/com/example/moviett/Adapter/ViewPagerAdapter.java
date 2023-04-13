@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.moviett.ApiContainer.ListMovie;
+import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
 import com.example.moviett.Fragment.MovieSearchFragment;
@@ -36,6 +37,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 ComingSoonFragment comingSoonFragment = new ComingSoonFragment();
                 comingSoonFragment.setListMovie(mListMovie);
                 return comingSoonFragment;
+            case 4:
+                CinemaFragment cinemaFragment = new CinemaFragment();
+                return cinemaFragment;
             default:
                 HomeFragment homeFragment = new HomeFragment();
                 homeFragment.setListMovie(mListMovie);
@@ -45,6 +49,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 }
