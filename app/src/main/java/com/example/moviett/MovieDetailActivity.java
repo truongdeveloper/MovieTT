@@ -77,6 +77,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         btnWatch = findViewById(R.id.watch_movie_button);
         rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
 
+        // Nhận dữ liệu
         Intent intent = getIntent();
         int idMovie = intent.getIntExtra("idMovie", 1);
 

@@ -1,8 +1,10 @@
 package com.example.moviett.Fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +17,15 @@ import com.example.moviett.Adapter.CinemaAdapter;
 import com.example.moviett.Adapter.MyAdapter;
 import com.example.moviett.ApiContainer.ListMovie;
 import com.example.moviett.ApiContainer.MovieApi;
+import com.example.moviett.CinemaDetailActivity;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class CinemaFragment extends Fragment {
 
@@ -32,6 +41,7 @@ public class CinemaFragment extends Fragment {
         return cinemaFragment;
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,17 +63,37 @@ public class CinemaFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getNowCinema() {
+        List<MovieApi> movieListNew = new ArrayList<>();
         if (mListMovie != null) {
+            // Lọc lấy thông tin phim trong tháng
+            List<MovieApi> movieInMonth = mListMovie.getNowPlayingMovies();
+            if (movieInMonth != null) {
+                for(int i = 0; i < movieInMonth.size(); i++) {
+                    MovieApi movieApi = movieInMonth.get(i);
+                    // Ngày hiện tại
+                    LocalDate currentDate = LocalDate.now();
+                    // Ngày phát hành của phim
+                    String[] release = movieApi.getReleaseDate().split("-");
+                    String date, month, year;
+                    month = release[1];
+                    year = release[0];
+                    // Kiểm tra ngày phát hành phim có trong tháng không
+                    if (Integer.parseInt(year) == currentDate.getYear() && Integer.parseInt(month) == currentDate.getMonthValue()) {
+                        movieListNew.add(movieApi);
+                    }
+                }
+            }
             CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
-                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), CinemaDetailActivity.class);
                     intent.putExtra("idMovie", movieApi.getId());
                     getActivity().startActivity(intent);
                 }
             });
-            cinemaAdapter.setData(mListMovie.getNowPlayingMovies());
+            cinemaAdapter.setData(movieListNew);
             mRcvNowCinema.setAdapter(cinemaAdapter);
         }
     }
@@ -73,7 +103,7 @@ public class CinemaFragment extends Fragment {
             CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
-                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), CinemaDetailActivity.class);
                     intent.putExtra("idMovie", movieApi.getId());
                     getActivity().startActivity(intent);
                 }
