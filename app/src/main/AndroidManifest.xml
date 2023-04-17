@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MovieTT"
         tools:targetApi="31">
         <activity
-            android:name=".CinemaDetailActivity"
+            android:name=".WatchMovieActivity"
             android:exported="false" />
         <activity
             android:name=".MovieDetailActivity"

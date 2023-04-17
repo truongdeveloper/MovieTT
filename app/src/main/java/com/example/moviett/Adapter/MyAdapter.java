@@ -24,13 +24,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context mContext;
     private List<MovieApi> mListMovieApi;
     private MyAdapter.OnItemClickListener listener;
+
+    private OnItemLongClickListener longClickListener;
     public interface OnItemClickListener {
         void onItemClick(MovieApi movieApi);
     }
 
-    public MyAdapter(Context mContext, MyAdapter.OnItemClickListener listener) {
+    public interface OnItemLongClickListener {
+        void onItemLongClick(MovieApi movieApi);
+    }
+
+    public MyAdapter(Context mContext, MyAdapter.OnItemClickListener listener, MyAdapter.OnItemLongClickListener listenerQuickView ) {
         this.mContext = mContext;
         this.listener = listener;
+        this.longClickListener = listenerQuickView;
     }
 
     public void setData(List<MovieApi> movie) {
@@ -62,6 +69,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 if (listener != null) {
                     listener.onItemClick(movie);
                 }
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (longClickListener != null) {
+                    longClickListener.onItemLongClick(movie);
+                }
+                return true;
             }
         });
     }
