@@ -81,6 +81,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         btnWatch = findViewById(R.id.watch_movie_button);
         rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
 
+        // Nhận dữ liệu
         Intent intent = getIntent();
         idMovie = intent.getIntExtra("idMovie", 1);
 
@@ -88,7 +89,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
-
 
         callApigetHome(idMovie);
     }
@@ -142,7 +142,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                         webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
                     }
 
-
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Result similarMovie) {
@@ -157,7 +156,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-
                             Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
                             intent.putExtra("idMovie", movie.getData().getId());
                             startActivity(intent);

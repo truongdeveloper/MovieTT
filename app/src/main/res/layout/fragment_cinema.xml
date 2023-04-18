@@ -1,27 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".Fragment.CinemaFragment"
+    android:background="@color/black_overlay"
     android:weightSum="2">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpCinema"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/topNavCinema"
-        android:contentDescription="null"/>
+        android:layout_height="match_parent">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/topNavCinema"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/white"
-        tool:menu="@menu/navigation_cinema"
-        tool:itemTextColor="@color/black"
-        tool:itemIconTint="@color/black" />
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+<!--            Phim đang chiếu -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phim đang chiếu"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvNowComing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+<!--            Phim sắp chiếu-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Phim sắp chiếu"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textColor="@color/white"/>-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvUpcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/vpCinema"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@+id/topNavCinema"-->
+<!--        android:contentDescription="null"/>-->
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/topNavCinema"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:background="@color/white"-->
+<!--        tool:menu="@menu/navigation_cinema"-->
+<!--        tool:itemTextColor="@color/black"-->
+<!--        tool:itemIconTint="@color/black" />-->
+</LinearLayout>
