@@ -90,7 +90,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
 
-
         callApigetHome(idMovie);
     }
 
@@ -157,7 +156,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-
                             Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
                             intent.putExtra("idMovie", movie.getData().getId());
                             startActivity(intent);

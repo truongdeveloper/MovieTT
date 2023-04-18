@@ -1,41 +1,47 @@
 package com.example.moviett.ApiMovieDetail;
 
-import com.example.moviett.ApiContainer.MovieApi;
-
-import java.util.List;
-
 public class CinemaMovie {
-    private MovieApi movies;
-    private List<String> movieTheaterName;
-    private List<String> time;
+    private String movieName;
+    private String movieTheaterName;
+    private String time;
+    private int imgTheater;
 
-    public CinemaMovie(MovieApi movies, List<String> movieTheaterName, List<String> time) {
-        this.movies = movies;
+    public CinemaMovie(String movieName, String movieTheaterName, String time, int imgTheater) {
+        this.movieName = movieName;
         this.movieTheaterName = movieTheaterName;
         this.time = time;
+        this.imgTheater = imgTheater;
     }
 
-    public MovieApi getMovies() {
-        return movies;
+    public int getImgTheater() {
+        return imgTheater;
     }
 
-    public void setMovies(MovieApi movies) {
-        this.movies = movies;
+    public void setImgTheater(int imgTheater) {
+        this.imgTheater = imgTheater;
     }
 
-    public List<String> getMovieTheaterName() {
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public String getMovieTheaterName() {
         return movieTheaterName;
     }
 
-    public void setMovieTheaterName(List<String> movieTheaterName) {
+    public void setMovieTheaterName(String movieTheaterName) {
         this.movieTheaterName = movieTheaterName;
     }
 
-    public List<String> getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(List<String> time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

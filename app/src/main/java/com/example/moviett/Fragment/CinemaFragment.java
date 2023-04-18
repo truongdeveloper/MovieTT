@@ -89,7 +89,8 @@ public class CinemaFragment extends Fragment {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
                     Intent intent = new Intent(getActivity(), CinemaDetailActivity.class);
-                    intent.putExtra("idMovie", movieApi.getId());
+                    intent.putExtra("nameMovie", movieApi.getTitle());
+                    intent.putExtra("releaseDate", movieApi.getReleaseDate());
                     getActivity().startActivity(intent);
                 }
             });

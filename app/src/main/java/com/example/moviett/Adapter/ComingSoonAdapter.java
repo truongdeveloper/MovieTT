@@ -27,7 +27,6 @@ import java.util.List;
 public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.ComingSoonViewHolder>{
     private Context mContext;
     private List<MovieApi> mListMovieApi;
-
     private ComingSoonAdapter.OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(MovieApi movie);
