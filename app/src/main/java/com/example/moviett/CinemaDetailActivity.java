@@ -1,7 +1,10 @@
 package com.example.moviett;
 
+import static com.example.moviett.ApiContainer.ApiService.apiService;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,18 +23,32 @@ import java.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moviett.Adapter.CinemaInfoAdapter;
 import com.example.moviett.Adapter.CinemaDateAdapter;
+import com.example.moviett.Adapter.SimilarMovieAdapter;
+import com.example.moviett.ApiMovieDetail.Cast;
 import com.example.moviett.ApiMovieDetail.CinemaCalender;
 import com.example.moviett.ApiMovieDetail.CinemaMovie;
+import com.example.moviett.ApiMovieDetail.Genres;
+import com.example.moviett.ApiMovieDetail.MovieDetail;
+import com.example.moviett.ApiMovieDetail.Result;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CinemaDetailActivity extends AppCompatActivity {
@@ -38,6 +56,13 @@ public class CinemaDetailActivity extends AppCompatActivity {
     private RecyclerView rcvDate;
     private RecyclerView rcvCinemaInfo;
     private TextView tvDate;
+
+    private ImageView imgBackdropImage;
+    private TextView tvMovieTitle, tvIbm, tvGenre, tvReleaseDate, tvDescription, tvActors;
+    NestedScrollView scrollView;
+    public WebView webView;
+    public int idMovie;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -47,11 +72,19 @@ public class CinemaDetailActivity extends AppCompatActivity {
 
         // Nhận movie từ CinemaFragment
         Intent intent = getIntent();
+        int idMovie = intent.getIntExtra("idMovie", 1);
         String nameMovie = intent.getStringExtra("nameMovie"); // tên phim
         String releaseDate = intent.getStringExtra("releaseDate"); // ngày phát hành
         String[] release = releaseDate.split("-");
 
         tvDate = findViewById(R.id.tv_Date);
+        imgBackdropImage = findViewById(R.id.backdrop_image);
+        tvMovieTitle = findViewById(R.id.movie_title);
+        tvIbm = findViewById(R.id.ibm);
+        tvGenre = findViewById(R.id.genre);
+        tvReleaseDate = findViewById(R.id.release_date);
+        tvDescription = findViewById(R.id.movie_description);
+        tvActors = findViewById(R.id.cast);
 
         // ánh xạ view ngày
         rcvDate = findViewById(R.id.rcvDays);
@@ -62,6 +95,7 @@ public class CinemaDetailActivity extends AppCompatActivity {
         rcvCinemaInfo = findViewById(R.id.rcv_cinemaInfo);
         rcvCinemaInfo.setLayoutManager(new GridLayoutManager(CinemaDetailActivity.this, 1));
 
+        callApigetHome(idMovie);
         getDayInMonth(release[2], release[1], release[0]); // Hiện ngày trong tháng bắt đầu từ ngày hiện tại
         getNowMovie(nameMovie); // Phim đang chiếu
 
@@ -90,7 +124,7 @@ public class CinemaDetailActivity extends AppCompatActivity {
         List<CinemaCalender> cinemaCalenders = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int year = Integer.parseInt(yearRelease);
-        int month = Calendar.APRIL+1; // Note: Tháng bắt đầu từ 0 (0 = Tháng 1)
+        int month = Integer.parseInt(monthRelease); // Note: Tháng bắt đầu từ 0 (0 = Tháng 1)
         calendar.set(year, month, 1); // Đặt ngày là ngày đầu tiên của tháng
         int numDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Số ngày trong tháng
         for (int day = 1; day <= numDays; day++) {
@@ -141,6 +175,58 @@ public class CinemaDetailActivity extends AppCompatActivity {
         }
     }
 
+    public void callApigetHome(int idMovie) {
 
+        Call<MovieDetail> call = apiService.getMovieDetail(idMovie, "vi");
+        call.enqueue(new Callback<MovieDetail>() {
+            @Override
+            public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
+                MovieDetail movie = response.body();
+                if (movie != null && movie.isSuccess()) {
+                    Picasso.get()
+                            .load(movie.getData().getBackdropPath())
+                            .placeholder(R.drawable.loadinganimation)
+                            .error(R.drawable.loading)
+                            .into(imgBackdropImage);
+                    tvMovieTitle.setText(movie.getData().getTitle());
+                    tvIbm.setText(String.valueOf(df.format(movie.getData().getVote_average())));
+                    // Thể loại phim
+                    String genre = "";
+                    List<Genres> genres = movie.getData().getGenres();
+                    int lengthGenre = genres.size();
+                    for(int i = 0; i < lengthGenre; i++) {
+                        genre += genres.get(i).getName() + ", ";
+                    }
+                    if(genre.length() > 2){
+                        tvGenre.setText(genre.substring(0, genre.length()-2));
+                    }
+                    // Ngày phát hành
+                    String[] release = movie.getData().getRelease_date().split("-");
+                    if(release.length > 1){
+                        tvReleaseDate.setText(release[2]+"-"+release[1]+"-"+release[0]);
+                    }
+                    // Mô tả ngắn
+                    tvDescription.setText(movie.getData().getOverview());
+                    // Diễn viên
+                    String actors = "";
+                    List<Cast> castList = movie.getCredits().getCast();
+                    int lengthActor = castList.size();
+                    for(int i = 0; i < lengthActor; i++) {
+                        actors += castList.get(i).getName() + ", ";
+                    }
+                    if(actors.length() > 2){
+                        tvActors.setText(actors.substring(0, actors.length()-2));
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieDetail> call, Throwable t) {
+                Toast.makeText(CinemaDetailActivity.this, "Có thể dữ liệu phim đã bị xoá khỏi Database", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+    }
 
 }
