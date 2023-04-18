@@ -73,14 +73,13 @@ public class CinemaFragment extends Fragment {
                 for(int i = 0; i < movieInMonth.size(); i++) {
                     MovieApi movieApi = movieInMonth.get(i);
                     // Ngày hiện tại
-                    LocalDate currentDate = LocalDate.now();
+                    String[] currentDate = LocalDate.now().toString().split("-");
                     // Ngày phát hành của phim
                     String[] release = movieApi.getReleaseDate().split("-");
-                    String date, month, year;
-                    month = release[1];
-                    year = release[0];
                     // Kiểm tra ngày phát hành phim có trong tháng không
-                    if (Integer.parseInt(year) == currentDate.getYear() && Integer.parseInt(month) == currentDate.getMonthValue()) {
+                    if (Integer.parseInt(release[0]) == Integer.parseInt(currentDate[0]) &&
+                            Integer.parseInt(release[1]) == Integer.parseInt(currentDate[1]) &&
+                            Integer.parseInt(release[2]) < Integer.parseInt(currentDate[2])) {
                         movieListNew.add(movieApi);
                     }
                 }
@@ -100,17 +99,35 @@ public class CinemaFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getUpcomingCinema() {
+        List<MovieApi> movieListNew = new ArrayList<>();
         if (mListMovie != null) {
+            List<MovieApi> movieInMonth = mListMovie.getUpcoming();
+            if (movieInMonth != null) {
+                for(int i = 0; i < movieInMonth.size(); i++) {
+                    MovieApi movieApi = movieInMonth.get(i);
+                    // Ngày hiện tại
+                    String[] currentDate = LocalDate.now().toString().split("-");
+                    // Ngày phát hành của phim
+                    String[] release = movieApi.getReleaseDate().split("-");
+                    // Kiểm tra ngày phát hành phim có trong tháng không
+                    if (Integer.parseInt(release[0]) == Integer.parseInt(currentDate[0]) &&
+                            Integer.parseInt(release[1]) == Integer.parseInt(currentDate[1]) &&
+                            Integer.parseInt(release[2]) > Integer.parseInt(currentDate[2])) {
+                        movieListNew.add(movieApi);
+                    }
+                }
+            }
             CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
-                    Intent intent = new Intent(getActivity(), CinemaDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
                     intent.putExtra("idMovie", movieApi.getId());
                     getActivity().startActivity(intent);
                 }
             });
-            cinemaAdapter.setData(mListMovie.getUpcoming());
+            cinemaAdapter.setData(movieListNew);
             mRcvUpcomingCinema.setAdapter(cinemaAdapter);
         }
     }

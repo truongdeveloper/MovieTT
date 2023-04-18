@@ -43,12 +43,12 @@
                 android:orientation="vertical"
                 android:layout_marginTop="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phim sắp chiếu"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Phim sắp chiếu"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textColor="@color/white"/>-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvUpcoming"
