@@ -101,7 +101,7 @@ public class MovieSearchFragment extends Fragment {
                     SearchAdapter searchAdapter = new SearchAdapter(getActivity(),new SearchAdapter.OnItemClickListener(){
                         @Override
                         public void onItemClick(SearchMovieItem movieApi) {
-                            Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
                             intent.putExtra("idMovie", movieApi.getId());
                             getActivity().startActivity(intent);
 
@@ -111,13 +111,13 @@ public class MovieSearchFragment extends Fragment {
                     recyclerView.setAdapter(searchAdapter);
 
                 }else{
-                    Toast.makeText(getActivity(), "Bị null rồi má ơi", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Không lấy được dữ liệu", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SearchMovie> call, Throwable t) {
-                Toast.makeText(getActivity(), "Không lấy được dữ liệu má ơi", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Không lấy được dữ liệu", Toast.LENGTH_LONG).show();
 
             }
         });
