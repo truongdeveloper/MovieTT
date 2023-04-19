@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onFailure(Call<ListMovie> call, Throwable t) {
                 new AlertDialog.Builder(SplashActivity.this)
                         .setTitle("Thông báo")
-                        .setMessage("Không lấy được dữ liệu, vui lòng kiểm tra mạng mẹo có ổn không?")
+                        .setMessage("Không lấy được dữ liệu, vui lòng kiểm tra mạng có ổn không?")
                         .setPositiveButton("Load lại", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

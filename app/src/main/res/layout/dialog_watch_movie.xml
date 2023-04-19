@@ -8,6 +8,6 @@
     <WebView
         android:id="@+id/webViewMovie"
         android:layout_width="410dp"
-        android:layout_height="230dp" />
+        android:layout_height="230dp"/>
 
 </LinearLayout>
