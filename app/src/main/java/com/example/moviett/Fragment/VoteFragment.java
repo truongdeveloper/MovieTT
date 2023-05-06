@@ -17,12 +17,10 @@ import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 
-import java.util.Collections;
-import java.util.Comparator;
 
-public class ComingSoonFragment extends Fragment {
+public class VoteFragment extends Fragment {
 
-    private RecyclerView mRcvComingSoon;
+    private RecyclerView mRcvVote;
     private ListMovie mListMovie;
 
 
@@ -30,24 +28,21 @@ public class ComingSoonFragment extends Fragment {
         this.mListMovie = listMovie;
     }
 
-    public static ComingSoonFragment getInstance() {
-        ComingSoonFragment comingSoonFragment = new ComingSoonFragment();
-        return comingSoonFragment;
+    public static VoteFragment getInstance() {
+        VoteFragment voteFragment = new VoteFragment();
+        return voteFragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_coming_soon, container, false);
-        mRcvComingSoon = view.findViewById(R.id.rcv_comingSoon);
+        View view = inflater.inflate(R.layout.fragment_vote, container, false);
+        mRcvVote = view.findViewById(R.id.rcv_vote);
 
-        mRcvComingSoon.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        mRcvVote.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
         if (mListMovie != null) {
-            // sắp xếp phim
-            //Collections.sort(mListMovie.getUpcoming(), new SortByVote());
-            //Collections.sort(mListMovie.getUpcoming(), new SortByName());
             ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(), new ComingSoonAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movie) {
@@ -57,26 +52,8 @@ public class ComingSoonFragment extends Fragment {
                 }
             });
             comingSoonAdapter.setData(mListMovie.getUpcoming());
-            mRcvComingSoon.setAdapter(comingSoonAdapter);
+            mRcvVote.setAdapter(comingSoonAdapter);
         }
         return view;
     }
-
-    // Sắp xếp theo điểm
-    public class SortByVote implements Comparator<MovieApi> {
-        public int compare(MovieApi movieApi1, MovieApi movieApi2) {
-            if (movieApi1.getVoteAverage() > movieApi2.getVoteAverage()) {
-                return 1;
-            }
-            return -1;
-        }
-    }
-
-    // Sắp xếp theo tên
-    public class SortByName implements Comparator<MovieApi> {
-        public int compare(MovieApi movieApi1, MovieApi movieApi2) {
-            return movieApi1.getTitle().compareTo(movieApi2.getTitle());
-        }
-    }
-
 }

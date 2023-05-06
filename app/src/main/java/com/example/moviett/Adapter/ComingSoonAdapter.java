@@ -72,7 +72,9 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 //        holder.tvTypeFilm.setText(movie.getMediaType());
         holder.tvTitleDate.setText(date);
         holder.tvTitleMonth.setText(month);
+//        holder.tvTitleYear.setText(year);
         holder.tvYear.setText(year);
+        holder.tvVote.setText(String.valueOf(movie.getVoteAverage()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,19 +104,23 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
         private TextView tvTypeFilm;
         private TextView tvTitleDate;
         private TextView tvTitleMonth;
+        private TextView tvTitleYear;
+        private TextView tvVote;
 
         private TextView tvYear;
         public ComingSoonViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//          thực hiện ánh xạ view
+//          Thực hiện ánh xạ view
             imgPosterFilm = itemView.findViewById(R.id.img_posterFilm);
             tvFilmName = itemView.findViewById(R.id.tv_filmName);
             tvTrainerContent = itemView.findViewById(R.id.tv_trainerContent);
-            tvTypeFilm = itemView.findViewById(R.id.tv_typeFilm);
+//            tvTypeFilm = itemView.findViewById(R.id.tv_typeFilm);
             tvTitleDate = itemView.findViewById(R.id.tv_titleDate);
             tvTitleMonth = itemView.findViewById(R.id.tv_titleMonth);
+//            tvTitleYear = itemView.findViewById(R.id.tv_titleYear);
             tvYear = itemView.findViewById(R.id.tv_year);
+            tvVote = itemView.findViewById(R.id.tv_vote);
         }
     }
 }

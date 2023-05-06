@@ -1,7 +1,7 @@
 package com.example.moviett.ApiContainer;
 
 public class SearchMovieItem {
-    private boolean adult = false;
+    private boolean adult;
     private String backdrop_path;
     private int[] genre_ids;
     private int id;
@@ -38,7 +38,7 @@ public class SearchMovieItem {
     }
 
     public void setAdult(boolean adult) {
-        this.adult = adult = false;
+        this.adult = adult;
     }
 
     public String getBackdrop_path() {

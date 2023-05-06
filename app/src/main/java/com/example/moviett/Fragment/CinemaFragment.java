@@ -56,9 +56,9 @@ public class CinemaFragment extends Fragment {
         getNowCinema();
 
         // Phim sắp chiếu
-        mRcvUpcomingCinema = view.findViewById(R.id.rcvUpcoming);
-        mRcvUpcomingCinema.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        getUpcomingCinema();
+//        mRcvUpcomingCinema = view.findViewById(R.id.rcvUpcoming);
+//        mRcvUpcomingCinema.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+//        getUpcomingCinema();
 
         return view;
     }
@@ -122,8 +122,10 @@ public class CinemaFragment extends Fragment {
             CinemaAdapter cinemaAdapter = new CinemaAdapter(getActivity(), new CinemaAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(MovieApi movieApi) {
-                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), CinemaDetailActivity.class);
                     intent.putExtra("idMovie", movieApi.getId());
+                    intent.putExtra("nameMovie", movieApi.getTitle());
+                    intent.putExtra("releaseDate", movieApi.getReleaseDate());
                     getActivity().startActivity(intent);
                 }
             });

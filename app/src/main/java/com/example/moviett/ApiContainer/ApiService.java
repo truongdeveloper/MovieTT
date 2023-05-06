@@ -32,6 +32,6 @@ public interface ApiService {
     Call<MovieDetail> getMovieDetail(@Path("id") int id, @Query("language") String language);
 
     @GET("search/movie")
-    Call<SearchMovie> getSearchMovie(@Query("text") String searchText,@Query("page") int pageNumber, @Query("language") String language);
+    Call<SearchMovie> getSearchMovie(@Query("text") String searchText, @Query("page") int pageNumber, @Query("language") String language);
 
 }

@@ -31,6 +31,7 @@ import com.example.moviett.ApiMovieDetail.Similar;
 import com.example.moviett.MovieDetailActivity;
 import com.example.moviett.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,7 +55,6 @@ public class MovieSearchFragment extends Fragment {
 
         mSearchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.recyclerView);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,17 +97,43 @@ public class MovieSearchFragment extends Fragment {
             @Override
             public void onResponse(Call<SearchMovie> call, Response<SearchMovie> response) {
                 mListMovie = response.body();
-                if(mListMovie!=null) {
+                // lọc phim
+                List<SearchMovieItem> searchMovies = new ArrayList<>();
+                for (int i = 0; i < mListMovie.getData().size(); i++) {
+                    if (mListMovie.getData().get(i).isAdult()) {
+                        continue;
+                    } else {
+                        SearchMovieItem searchMovieItem = new SearchMovieItem(
+                                mListMovie.getData().get(i).isAdult(),
+                                mListMovie.getData().get(i).getBackdrop_path(),
+                                mListMovie.getData().get(i).getGenre_ids(),
+                                mListMovie.getData().get(i).getId(),
+                                mListMovie.getData().get(i).getOriginal_language(),
+                                mListMovie.getData().get(i).getOriginal_title(),
+                                mListMovie.getData().get(i).getOverview(),
+                                mListMovie.getData().get(i).getPopularity(),
+                                mListMovie.getData().get(i).getPoster_path(),
+                                mListMovie.getData().get(i).getRelease_date(),
+                                mListMovie.getData().get(i).getTitle(),
+                                mListMovie.getData().get(i).isVideo(),
+                                mListMovie.getData().get(i).getVote_average(),
+                                mListMovie.getData().get(i).getVote_count()
+                        );
+                        searchMovies.add(searchMovieItem);
+                    }
+                }
+                SearchMovie searchMovie = new SearchMovie(mListMovie.isSuccess(), searchMovies);
+
+                if(searchMovie!=null) {
                     SearchAdapter searchAdapter = new SearchAdapter(getActivity(),new SearchAdapter.OnItemClickListener(){
                         @Override
                         public void onItemClick(SearchMovieItem movieApi) {
-                             Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                            Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
                             intent.putExtra("idMovie", movieApi.getId());
                             getActivity().startActivity(intent);
-
                         }
                     });
-                    searchAdapter.setData(mListMovie.getData());
+                    searchAdapter.setData(searchMovie.getData());
                     recyclerView.setAdapter(searchAdapter);
 
                 }else{
