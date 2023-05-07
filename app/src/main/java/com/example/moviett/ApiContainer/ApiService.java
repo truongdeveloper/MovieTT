@@ -26,7 +26,7 @@ public interface ApiService {
             .create(ApiService.class);
 
     @GET("home")
-    Call<ListMovie> getHomeData(@Query("language") String language);
+    Call<ListMovie> getHomeData(@Query("page") int page, @Query("language") String language);
 
     @GET("movie/{id}")
     Call<MovieDetail> getMovieDetail(@Path("id") int id, @Query("language") String language);

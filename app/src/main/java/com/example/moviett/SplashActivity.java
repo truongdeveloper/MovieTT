@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         // Delay to show splash screen
 
-        ApiService.apiService.getHomeData("vi").enqueue(new Callback<ListMovie>() {
+        ApiService.apiService.getHomeData(1, "vi").enqueue(new Callback<ListMovie>() {
             @Override
             public void onResponse(Call<ListMovie> call, Response<ListMovie> response) {
                 ListMovie mListMovie = response.body();
