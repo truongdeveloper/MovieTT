@@ -20,7 +20,8 @@
             android:name=".WatchMovieActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".MovieDetailActivity"
             android:exported="false"

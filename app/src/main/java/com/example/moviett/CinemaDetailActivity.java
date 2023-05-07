@@ -99,22 +99,11 @@ public class CinemaDetailActivity extends AppCompatActivity {
         getDayInMonth("release[2]", "10", "05");
 
         //getNowMovie(); // Phim đang chiếu
-        ArrayList<CinemaMovie> cinemaMovies = (ArrayList<CinemaMovie>) intent.getSerializableExtra("my_list");
-        getNowMovieList(cinemaMovies);
+//        ArrayList<CinemaMovie> cinemaMovies = (ArrayList<CinemaMovie>) intent.getSerializableExtra("my_list");
+//        getNowMovieList(cinemaMovies);
     }
 
-    public void getNowMovieList(ArrayList<CinemaMovie> cinemaMovies) {
-        if (cinemaMovies != null) {
-            Collections.shuffle(cinemaMovies);
-            List<CinemaMovie> result = cinemaMovies.subList(0, 5);
-            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, result);
-            rcvCinemaInfo.setAdapter(cinemaAdapter);
-        }
-    }
-
-    // thông tin phim đang chiếu: tên rạp, thời gian chiếu
-    public void getNowMovie() {
-        // Danh sách thông tin (rạp, thời gian chiếu)
+    public void getNowMovieList() {
         List<CinemaMovie> cinemaMovies = new ArrayList<>();
         cinemaMovies.add(new CinemaMovie(1, "CGV Aeon Long Biên", "19:00 - 20:30 - 21:30", R.drawable.cgv));
         cinemaMovies.add(new CinemaMovie(2, "CGV Rice City", "18:00 - 19:00 - 20:30", R.drawable.cgv));
@@ -129,12 +118,38 @@ public class CinemaDetailActivity extends AppCompatActivity {
         cinemaMovies.add(new CinemaMovie(11, "BHD Star The Garden", "19:30 - 21:00 - 23:00", R.drawable.bhd));
         cinemaMovies.add(new CinemaMovie(12, "BHD Star Phạm Ngọc Thạch", "19:00 - 20:00 - 21:30", R.drawable.bhd));
         cinemaMovies.add(new CinemaMovie(13, "BHD Star Discovery", "19:00 - 21:00 - 22:30", R.drawable.bhd));
-
         if (cinemaMovies != null) {
-            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, cinemaMovies);
+            Collections.shuffle(cinemaMovies); // đảo vị trí các phần tử
+            List<CinemaMovie> result = cinemaMovies.subList(0, 5);
+            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, result);
             rcvCinemaInfo.setAdapter(cinemaAdapter);
         }
     }
+
+    // thông tin phim đang chiếu: tên rạp, thời gian chiếu
+//    public List<CinemaMovie> getNowMovie() {
+//        // Danh sách thông tin (rạp, thời gian chiếu)
+//        List<CinemaMovie> cinemaMovies = new ArrayList<>();
+//        cinemaMovies.add(new CinemaMovie(1, "CGV Aeon Long Biên", "19:00 - 20:30 - 21:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(2, "CGV Rice City", "18:00 - 19:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(3, "CGV Vincom Nguyễn Chí Thanh", "11:00 - 12:00 - 13:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(4, "CGV Skylake Phạm Hùng", "17:00 - 18:00 - 19:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(5, "CGV Vincom Bắc Từ Liêm", "10:50 - 13:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(6, "Lotte Hà Đông", "19:00 - 21:00 - 22:30", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(7, "Lotte Cinema Thăng Long", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(8, "Lotte Cinema Long Biên", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(9, "Lotte West Lake", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(10, "Lotte KosMo", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(11, "BHD Star The Garden", "19:30 - 21:00 - 23:00", R.drawable.bhd));
+//        cinemaMovies.add(new CinemaMovie(12, "BHD Star Phạm Ngọc Thạch", "19:00 - 20:00 - 21:30", R.drawable.bhd));
+//        cinemaMovies.add(new CinemaMovie(13, "BHD Star Discovery", "19:00 - 21:00 - 22:30", R.drawable.bhd));
+//
+////        if (cinemaMovies != null) {
+////            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, cinemaMovies);
+////            rcvCinemaInfo.setAdapter(cinemaAdapter);
+////        }
+//        return cinemaMovies;
+//    }
 
     // Hiển thị ngày tháng
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -203,6 +218,8 @@ public class CinemaDetailActivity extends AppCompatActivity {
                         + calendar.getMonth() + "/"
                         + calendar.getYear();
                 tvDate.setText(txtDate);
+
+                getNowMovieList();
             }
         });
         rcvDate.setAdapter(cinemaDateAdapter);

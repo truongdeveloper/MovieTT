@@ -79,7 +79,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvReleaseDate = findViewById(R.id.release_date);
         tvDescription = findViewById(R.id.movie_description);
         tvActors = findViewById(R.id.cast);
-//        btnWatch = findViewById(R.id.watch_movie_button);
+        btnWatch = findViewById(R.id.watch_movie_button);
         rcv_similarMovie = findViewById(R.id.rcv_similar_movies);
 
         // Nhận dữ liệu
@@ -163,11 +163,11 @@ public class MovieDetailActivity extends AppCompatActivity {
                         }
                     });
                     //Hiện Trailer Film
-                    if(!movie.getVideos().getResults().isEmpty()){
-                        String videoId = movie.getVideos().getResults().get(0).getKey();
-                        String html = String.format("<html ><body style=\"background-color:\"#000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
-                        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-                    }
+//                    if(!movie.getVideos().getResults().isEmpty()){
+//                        String videoId = movie.getVideos().getResults().get(0).getKey();
+//                        String html = String.format("<html ><body style=\"background-color:\"#000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
+//                        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+//                    }
 
                     // Phim tương tự
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
@@ -180,15 +180,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                     });
                     rcv_similarMovie.setAdapter(similarMovieAdapter);
 
-//                    btnWatch.setOnClickListener(new View.OnClickListener() {
-//
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
-//                            intent.putExtra("idMovie", movie.getData().getId());
-//                            startActivity(intent);
-//                        }
-//                    });
+                    btnWatch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String videoId = movie.getVideos().getResults().get(0).getKey();
+                            Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
+                            intent.putExtra("idMovie", videoId);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
