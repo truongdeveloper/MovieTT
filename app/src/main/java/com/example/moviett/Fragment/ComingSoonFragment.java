@@ -110,6 +110,7 @@ public class ComingSoonFragment extends Fragment {
                 for(MovieApi movieApi : truong.getUpcoming()) {
                     mListMovie.getUpcoming().add(movieApi);
                 }
+
                 comingSoonAdapter.setData(mListMovie.getUpcoming());
                 mRcvComingSoon.setAdapter(comingSoonAdapter);
             }
