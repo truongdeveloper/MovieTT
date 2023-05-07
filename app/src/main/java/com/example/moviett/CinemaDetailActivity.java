@@ -212,8 +212,16 @@ public class CinemaDetailActivity extends AppCompatActivity {
                         + calendar.getMonth() + "/"
                         + calendar.getYear();
                 tvDate.setText(txtDate);
-                int start = cinemaCalenders.indexOf(calendar);
-                int end = start + 5;
+                int start = 0;
+                int end = 0;
+                if (cinemaCalenders.indexOf(calendar) < 8) {
+                    start = cinemaCalenders.indexOf(calendar);
+                    end = start + 5;
+                } else {
+                    start = cinemaCalenders.indexOf(calendar) - 8;
+                    end = start + 5;
+                }
+
                 Toast.makeText(CinemaDetailActivity.this, String.valueOf(cinemaCalenders.indexOf(calendar)), Toast.LENGTH_SHORT).show();
                 // Danh sách rạp chiếu phim theo ngày
                 getNowMovieList(start, end);
