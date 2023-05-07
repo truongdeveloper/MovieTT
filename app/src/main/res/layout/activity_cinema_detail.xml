@@ -159,7 +159,7 @@
                     android:id="@+id/tv_Date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Thứ 5, 13/04/2023"
+                    android:text="Thứ 5, 07/05/2023"
                     android:textSize="20dp"
                     android:textColor="@color/white"
                     android:gravity="center"

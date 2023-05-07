@@ -99,26 +99,34 @@ public class MovieSearchFragment extends Fragment {
                 mListMovie = response.body();
                 // lọc phim
                 List<SearchMovieItem> searchMovies = new ArrayList<>();
-                for (int i = 0; i < mListMovie.getData().size(); i++) {
-                    if (mListMovie.getData().get(i).isAdult()) {
+//                for (int i = 0; i < mListMovie.getData().size(); i++) {
+//                    if (mListMovie.getData().get(i).isAdult()) {
+//                        continue;
+//                    } else {
+//                        SearchMovieItem searchMovieItem = new SearchMovieItem(
+//                                mListMovie.getData().get(i).isAdult(),
+//                                mListMovie.getData().get(i).getBackdrop_path(),
+//                                mListMovie.getData().get(i).getGenre_ids(),
+//                                mListMovie.getData().get(i).getId(),
+//                                mListMovie.getData().get(i).getOriginal_language(),
+//                                mListMovie.getData().get(i).getOriginal_title(),
+//                                mListMovie.getData().get(i).getOverview(),
+//                                mListMovie.getData().get(i).getPopularity(),
+//                                mListMovie.getData().get(i).getPoster_path(),
+//                                mListMovie.getData().get(i).getRelease_date(),
+//                                mListMovie.getData().get(i).getTitle(),
+//                                mListMovie.getData().get(i).isVideo(),
+//                                mListMovie.getData().get(i).getVote_average(),
+//                                mListMovie.getData().get(i).getVote_count()
+//                        );
+//                        searchMovies.add(searchMovieItem);
+//                    }
+//                }
+
+                for (SearchMovieItem searchMovieItem : mListMovie.getData()) {
+                    if (searchMovieItem.isAdult()) {
                         continue;
                     } else {
-                        SearchMovieItem searchMovieItem = new SearchMovieItem(
-                                mListMovie.getData().get(i).isAdult(),
-                                mListMovie.getData().get(i).getBackdrop_path(),
-                                mListMovie.getData().get(i).getGenre_ids(),
-                                mListMovie.getData().get(i).getId(),
-                                mListMovie.getData().get(i).getOriginal_language(),
-                                mListMovie.getData().get(i).getOriginal_title(),
-                                mListMovie.getData().get(i).getOverview(),
-                                mListMovie.getData().get(i).getPopularity(),
-                                mListMovie.getData().get(i).getPoster_path(),
-                                mListMovie.getData().get(i).getRelease_date(),
-                                mListMovie.getData().get(i).getTitle(),
-                                mListMovie.getData().get(i).isVideo(),
-                                mListMovie.getData().get(i).getVote_average(),
-                                mListMovie.getData().get(i).getVote_count()
-                        );
                         searchMovies.add(searchMovieItem);
                     }
                 }
