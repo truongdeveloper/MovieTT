@@ -1,16 +1,27 @@
 package com.example.moviett.ApiMovieDetail;
 
-public class CinemaMovie {
+import java.io.Serializable;
+
+public class CinemaMovie implements Serializable {
+    private int idMovie;
     private String movieName;
     private String movieTheaterName;
     private String time;
     private int imgTheater;
 
-    public CinemaMovie(String movieName, String movieTheaterName, String time, int imgTheater) {
-        this.movieName = movieName;
+    public CinemaMovie(int idMovie, String movieTheaterName, String time, int imgTheater) {
+        this.idMovie = idMovie;
         this.movieTheaterName = movieTheaterName;
         this.time = time;
         this.imgTheater = imgTheater;
+    }
+
+    public int getIdMovie() {
+        return idMovie;
+    }
+
+    public void setIdMovie(int idMovie) {
+        this.idMovie = idMovie;
     }
 
     public int getImgTheater() {

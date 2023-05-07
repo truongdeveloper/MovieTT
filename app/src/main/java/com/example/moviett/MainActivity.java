@@ -23,6 +23,7 @@ import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
 import com.example.moviett.Fragment.TrendingFragment;
+import com.example.moviett.Fragment.VoteFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         comingSoonFragment.setListMovie(mListMovie);
         CinemaFragment cinemaFragment = CinemaFragment.getInstance();
         cinemaFragment.setListMovie(mListMovie);
+        VoteFragment voteFragment = VoteFragment.getInstance();
+        voteFragment.setListMovie(mListMovie);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mListMovie);
         mViewPager.setAdapter(adapter);
@@ -100,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                         mBottomNavigationView.getMenu().findItem(R.id.navigation_cinema).setChecked(true);
                         actionBar.setTitle("Phim chiếu rạp");
                         break;
+//                    case 5:
+//                        mBottomNavigationView.getMenu().findItem(R.id.navigation_vote).setChecked(true);
+//                        actionBar.setTitle("Điểm đánh giá");
+//                        break;
                 }
             }
             @Override
@@ -132,12 +139,14 @@ public class MainActivity extends AppCompatActivity {
                         mViewPager.setCurrentItem(4);
                         actionBar.setTitle("Phim chiếu rạp");
                         break;
+//                    case R.id.navigation_vote:
+//                        mViewPager.setCurrentItem(5);
+//                        actionBar.setTitle("Điểm đánh giá");
+//                        break;
                 }
                 return true;
             }
         });
-
-
     }
     @Override
     public void onBackPressed() {

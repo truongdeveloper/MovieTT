@@ -1,7 +1,10 @@
 package com.example.moviett.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviett.ApiContainer.MovieApi;
 import com.example.moviett.ApiMovieDetail.CinemaCalender;
+import com.example.moviett.ApiMovieDetail.CinemaMovie;
+import com.example.moviett.CinemaDetailActivity;
+import com.example.moviett.Fragment.CinemaFragment;
 import com.example.moviett.R;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CinemaDateAdapter extends RecyclerView.Adapter<CinemaDateAdapter.ViewHolder>{
 
     private List<CinemaCalender> calendars;
     private Context context;
+
     private CinemaDateAdapter.OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(CinemaCalender calendar);

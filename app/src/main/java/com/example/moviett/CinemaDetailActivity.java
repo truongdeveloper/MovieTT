@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 
 import java.text.DecimalFormat;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -42,6 +44,7 @@ import com.example.moviett.ApiMovieDetail.Result;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -69,9 +72,9 @@ public class CinemaDetailActivity extends AppCompatActivity {
         // Nhận movie từ CinemaFragment
         Intent intent = getIntent();
         int idMovie = intent.getIntExtra("idMovie", 1);
-        String nameMovie = intent.getStringExtra("nameMovie"); // tên phim
-        String releaseDate = intent.getStringExtra("releaseDate"); // ngày phát hành
-        String[] release = releaseDate.split("-");
+        String nameMovie= intent.getStringExtra("nameMovie"); // tên phim
+//        String releaseDate = intent.getStringExtra("releaseDate"); // ngày phát hành
+//        String[] release = releaseDate.split("-");
 
         tvDate = findViewById(R.id.tv_Date);
         imgBackdropImage = findViewById(R.id.backdrop_image);
@@ -92,55 +95,121 @@ public class CinemaDetailActivity extends AppCompatActivity {
         rcvCinemaInfo.setLayoutManager(new GridLayoutManager(CinemaDetailActivity.this, 1));
 
         callApigetHome(idMovie);
-        getDayInMonth(release[2], release[1], release[0]);
-        getNowMovie(nameMovie); // Phim đang chiếu
+//        getDayInMonth(release[2], release[1], release[0]);
+        getDayInMonth("release[2]", "10", "05");
 
+        //getNowMovie(); // Phim đang chiếu
+//        ArrayList<CinemaMovie> cinemaMovies = (ArrayList<CinemaMovie>) intent.getSerializableExtra("my_list");
+//        getNowMovieList(cinemaMovies);
     }
 
-    // thông tin phim đang chiếu: tên rạp, thời gian chiếu
-    public void getNowMovie(String nameMovie) {
-        // Danh sách thông tin (rạp, thời gian chiếu)
+    public void getNowMovieList() {
         List<CinemaMovie> cinemaMovies = new ArrayList<>();
-        cinemaMovies.add(new CinemaMovie(nameMovie, "CGV Aeon Long Biên", "19:00", R.drawable.cgv));
-        cinemaMovies.add(new CinemaMovie(nameMovie, "CGV Rice City", "19:00", R.drawable.cgv));
-        cinemaMovies.add(new CinemaMovie(nameMovie, "Lotte Hà Đông", "19:00", R.drawable.lotte));
-        cinemaMovies.add(new CinemaMovie(nameMovie, "Lotte Thăng Long", "19:00", R.drawable.lotte));
-        cinemaMovies.add(new CinemaMovie(nameMovie, "BHD Star The Garden", "19:30", R.drawable.bhd));
-        cinemaMovies.add(new CinemaMovie(nameMovie, "BHD Star Phạm Ngọc Thạch", "19:00", R.drawable.bhd));
-
+        cinemaMovies.add(new CinemaMovie(1, "CGV Aeon Long Biên", "19:00 - 20:30 - 21:30", R.drawable.cgv));
+        cinemaMovies.add(new CinemaMovie(2, "CGV Rice City", "18:00 - 19:00 - 20:30", R.drawable.cgv));
+        cinemaMovies.add(new CinemaMovie(3, "CGV Vincom Nguyễn Chí Thanh", "11:00 - 12:00 - 13:30", R.drawable.cgv));
+        cinemaMovies.add(new CinemaMovie(4, "CGV Skylake Phạm Hùng", "17:00 - 18:00 - 19:00 - 20:30", R.drawable.cgv));
+        cinemaMovies.add(new CinemaMovie(5, "CGV Vincom Bắc Từ Liêm", "10:50 - 13:00 - 20:30", R.drawable.cgv));
+        cinemaMovies.add(new CinemaMovie(6, "Lotte Hà Đông", "19:00 - 21:00 - 22:30", R.drawable.lotte));
+        cinemaMovies.add(new CinemaMovie(7, "Lotte Cinema Thăng Long", "19:00 - 22:00", R.drawable.lotte));
+        cinemaMovies.add(new CinemaMovie(8, "Lotte Cinema Long Biên", "19:00 - 22:00", R.drawable.lotte));
+        cinemaMovies.add(new CinemaMovie(9, "Lotte West Lake", "19:00 - 22:00", R.drawable.lotte));
+        cinemaMovies.add(new CinemaMovie(10, "Lotte KosMo", "19:00 - 22:00", R.drawable.lotte));
+        cinemaMovies.add(new CinemaMovie(11, "BHD Star The Garden", "19:30 - 21:00 - 23:00", R.drawable.bhd));
+        cinemaMovies.add(new CinemaMovie(12, "BHD Star Phạm Ngọc Thạch", "19:00 - 20:00 - 21:30", R.drawable.bhd));
+        cinemaMovies.add(new CinemaMovie(13, "BHD Star Discovery", "19:00 - 21:00 - 22:30", R.drawable.bhd));
         if (cinemaMovies != null) {
-            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, cinemaMovies);
+            Collections.shuffle(cinemaMovies); // đảo vị trí các phần tử
+            List<CinemaMovie> result = cinemaMovies.subList(0, 5);
+            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, result);
             rcvCinemaInfo.setAdapter(cinemaAdapter);
         }
     }
 
+    // thông tin phim đang chiếu: tên rạp, thời gian chiếu
+//    public List<CinemaMovie> getNowMovie() {
+//        // Danh sách thông tin (rạp, thời gian chiếu)
+//        List<CinemaMovie> cinemaMovies = new ArrayList<>();
+//        cinemaMovies.add(new CinemaMovie(1, "CGV Aeon Long Biên", "19:00 - 20:30 - 21:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(2, "CGV Rice City", "18:00 - 19:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(3, "CGV Vincom Nguyễn Chí Thanh", "11:00 - 12:00 - 13:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(4, "CGV Skylake Phạm Hùng", "17:00 - 18:00 - 19:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(5, "CGV Vincom Bắc Từ Liêm", "10:50 - 13:00 - 20:30", R.drawable.cgv));
+//        cinemaMovies.add(new CinemaMovie(6, "Lotte Hà Đông", "19:00 - 21:00 - 22:30", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(7, "Lotte Cinema Thăng Long", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(8, "Lotte Cinema Long Biên", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(9, "Lotte West Lake", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(10, "Lotte KosMo", "19:00 - 22:00", R.drawable.lotte));
+//        cinemaMovies.add(new CinemaMovie(11, "BHD Star The Garden", "19:30 - 21:00 - 23:00", R.drawable.bhd));
+//        cinemaMovies.add(new CinemaMovie(12, "BHD Star Phạm Ngọc Thạch", "19:00 - 20:00 - 21:30", R.drawable.bhd));
+//        cinemaMovies.add(new CinemaMovie(13, "BHD Star Discovery", "19:00 - 21:00 - 22:30", R.drawable.bhd));
+//
+////        if (cinemaMovies != null) {
+////            CinemaInfoAdapter cinemaAdapter = new CinemaInfoAdapter(CinemaDetailActivity.this, cinemaMovies);
+////            rcvCinemaInfo.setAdapter(cinemaAdapter);
+////        }
+//        return cinemaMovies;
+//    }
+
+    // Hiển thị ngày tháng
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getDayInMonth(String dayRelease, String monthRelease, String yearRelease) {
-        // lưu danh sách các ngày trong tháng vào danh sách đối tượng CinemaCalender (thứ, ngày, tháng, năm)
-        List<CinemaCalender> cinemaCalenders = new ArrayList<>();
+        // Danh sách chứa 2 tháng liên tiếp
+        List<Integer> daysInMonth = new ArrayList<>();
         int year = Integer.parseInt(yearRelease);
         int month = Integer.parseInt(monthRelease);
-
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month-1);
-        int numDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        for (int day = 1; day <= numDays; day++) {
-            if (day >= Integer.parseInt(dayRelease)) {
-                calendar.set(year, month - 1, day); // Đặt ngày là ngày trong tháng
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); // Thứ của ngày
-                CinemaCalender cinemaCalender = new CinemaCalender(getDayOfWeek(dayOfWeek), day, month, year);
-                cinemaCalenders.add(cinemaCalender);
-            }
+        int numDaysInNowMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        for (int day = 1; day <= numDaysInNowMonth; day++) {
+            calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.set(year, month - 1, day); // Đặt ngày là ngày trong tháng
+            daysInMonth.add(day);
+        }
+        calendar.set(Calendar.MONTH, month);
+        int numDaysInNextMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        for (int day = 1; day <= numDaysInNextMonth; day++) {
+            calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.set(year, month, day); // Đặt ngày là ngày trong tháng
+            daysInMonth.add(day);
         }
 
-        String[] date = LocalDate.now().toString().split("-");
-        calendar.set(year, month - 1, Integer.parseInt(date[2])); // Đặt ngày là ngày trong tháng
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); // Thứ của ngày
-        String now = getDayOfWeek(dayOfWeek) + ", " + date[2] + "/" + date[1] + "/" + date[0];
+        // Ngày hiện tại
+        String[] dates = LocalDate.now().toString().split("-");
+        calendar.set(year, month - 1, Integer.parseInt(dates[2])); // Đặt ngày là ngày trong tháng
+        int date = calendar.get(Calendar.DAY_OF_WEEK); // Thứ của ngày
+        String now = getDayOfWeek(date) + ", " + dates[2] + "/" + dates[1] + "/" + dates[0];
         tvDate.setText(now);
 
+        // lưu danh sách các ngày trong tháng
+        List<CinemaCalender> cinemaCalenders = new ArrayList<>();
+        int dem = 0, index = 0;
+        Calendar calenderNow = Calendar.getInstance();
+        calenderNow.set(Calendar.MONTH, month-1);
+        int currentDay = calenderNow.get(Calendar.DAY_OF_MONTH);
+        // Lấy ngày bắt đầu từ ngày hiện tại và 13 ngày tiếp theo
+        for(int i = daysInMonth.indexOf(currentDay); i <= daysInMonth.size(); i++) {
+            if (daysInMonth.get(i) >= currentDay && dem <= 14 && daysInMonth.get(i) <= numDaysInNowMonth) {
+                calendar.set(year, month - 1, daysInMonth.get(i));
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                CinemaCalender cinemaCalender = new CinemaCalender(getDayOfWeek(dayOfWeek), daysInMonth.get(i), month, year);
+                cinemaCalenders.add(cinemaCalender);
+                dem++;
+            }
+            else {
+                index = i;
+                break;
+            }
+        }
+        for(int i = index; i <= daysInMonth.size(); i++) {
+            if (i >= calendar.get(Calendar.DAY_OF_MONTH) && dem <= 14) {
+                calendar.set(year, month, daysInMonth.get(i));
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                CinemaCalender cinemaCalender = new CinemaCalender(getDayOfWeek(dayOfWeek), daysInMonth.get(i), month + 1, year);
+                cinemaCalenders.add(cinemaCalender);
+                dem++;
+            }
+        }
         CinemaDateAdapter cinemaDateAdapter = new CinemaDateAdapter(cinemaCalenders, CinemaDetailActivity.this, new CinemaDateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CinemaCalender calendar) {
@@ -149,6 +218,8 @@ public class CinemaDetailActivity extends AppCompatActivity {
                         + calendar.getMonth() + "/"
                         + calendar.getYear();
                 tvDate.setText(txtDate);
+
+                getNowMovieList();
             }
         });
         rcvDate.setAdapter(cinemaDateAdapter);

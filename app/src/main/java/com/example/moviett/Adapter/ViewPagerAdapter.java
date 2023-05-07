@@ -11,6 +11,7 @@ import com.example.moviett.Fragment.ComingSoonFragment;
 import com.example.moviett.Fragment.HomeFragment;
 import com.example.moviett.Fragment.MovieSearchFragment;
 import com.example.moviett.Fragment.TrendingFragment;
+import com.example.moviett.Fragment.VoteFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -40,6 +41,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 4:
                 CinemaFragment cinemaFragment = new CinemaFragment();
                 return cinemaFragment;
+//            case 5:
+//                VoteFragment voteFragment = new VoteFragment();
+//                return voteFragment;
             default:
                 HomeFragment homeFragment = new HomeFragment();
                 homeFragment.setListMovie(mListMovie);

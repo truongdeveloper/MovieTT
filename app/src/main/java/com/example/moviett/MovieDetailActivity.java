@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -118,6 +119,19 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if(genre.length() > 2){
                         tvGenre.setText(genre.substring(0, genre.length()-2));
                     }
+//                    tvGenre.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            TextView textView = (TextView) view;
+//                            if (textView.getMaxLines() == 1) {
+//                                textView.setMaxLines(Integer.MAX_VALUE);
+//                                textView.setEllipsize(null);
+//                            } else {
+//                                textView.setMaxLines(1);
+//                                textView.setEllipsize(TextUtils.TruncateAt.END);
+//                            }
+//                        }
+//                    });
                     // Ngày phát hành
                     String[] release = movie.getData().getRelease_date().split("-");
                     if(release.length > 1){
@@ -135,13 +149,27 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if(actors.length() > 2){
                         tvActors.setText(actors.substring(0, actors.length()-2));
                     }
+                    tvActors.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TextView textView = (TextView) view;
+                            if (textView.getMaxLines() == 1) {
+                                textView.setMaxLines(Integer.MAX_VALUE);
+                                textView.setEllipsize(null);
+                            } else {
+                                textView.setMaxLines(1);
+                                textView.setEllipsize(TextUtils.TruncateAt.END);
+                            }
+                        }
+                    });
                     //Hiện Trailer Film
-                    if(!movie.getVideos().getResults().isEmpty()){
-                        String videoId = movie.getVideos().getResults().get(0).getKey();
-                        String html = String.format("<html ><body style=\"background-color:\"#0000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
-                        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-                    }
+//                    if(!movie.getVideos().getResults().isEmpty()){
+//                        String videoId = movie.getVideos().getResults().get(0).getKey();
+//                        String html = String.format("<html ><body style=\"background-color:\"#000\"><center><iframe width=\"320\" height=\"180\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", videoId);
+//                        webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+//                    }
 
+                    // Phim tương tự
                     SimilarMovieAdapter similarMovieAdapter = new SimilarMovieAdapter(movie.getSimilar().getResults(), new SimilarMovieAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Result similarMovie) {
@@ -153,11 +181,11 @@ public class MovieDetailActivity extends AppCompatActivity {
                     rcv_similarMovie.setAdapter(similarMovieAdapter);
 
                     btnWatch.setOnClickListener(new View.OnClickListener() {
-
                         @Override
                         public void onClick(View view) {
+                            String videoId = movie.getVideos().getResults().get(0).getKey();
                             Intent intent = new Intent(MovieDetailActivity.this, WatchMovieActivity.class);
-                            intent.putExtra("idMovie", movie.getData().getId());
+                            intent.putExtra("idMovie", videoId);
                             startActivity(intent);
                         }
                     });

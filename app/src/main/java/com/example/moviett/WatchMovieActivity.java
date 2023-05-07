@@ -14,6 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class WatchMovieActivity extends AppCompatActivity {
 
@@ -24,12 +25,9 @@ public class WatchMovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_movie);
 
-//        webViewMovie.setWebViewClient(new WebViewClient());
-//        webViewMovie.setWebChromeClient(new MyChrome());
 
         Intent intent = getIntent();
-        int idMovie = intent.getIntExtra("idMovie", 1);
-
+        String idMovie = intent.getStringExtra("idMovie");
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -37,24 +35,24 @@ public class WatchMovieActivity extends AppCompatActivity {
 
 
         webViewMovie = findViewById(R.id.webViewMovie);
+//Toàn màn hình
+//        webViewMovie.setWebViewClient(new WebViewClient());
+//        webViewMovie.setWebChromeClient(new MyChrome());
         webViewMovie.getSettings().setJavaScriptEnabled(true);
-        webViewMovie.getSettings().setDomStorageEnabled(true);
-        webViewMovie.getSettings().setAllowFileAccess(true);
-        webViewMovie.getSettings().setAllowContentAccess(true);
-        webViewMovie.getSettings().setAllowFileAccessFromFileURLs(true);
-        webViewMovie.getSettings().setAllowUniversalAccessFromFileURLs(true);
-        webViewMovie.getSettings().setMediaPlaybackRequiresUserGesture(false);
-        webViewMovie.loadUrl("https://www.2embed.to/embed/tmdb/movie?id=" + idMovie);
 
-        webViewMovie.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String url = request.getUrl().toString();
-                // Xử lý url ở đây nếu cần thiết
-//                view.loadUrl(url);
-                return true;
-            }
-        });
+
+        String html = String.format("<html ><body style=\"background-color:\"#000\"><center><iframe width=\"600\" height=\"300\" src=\"https://www.youtube.com/embed/%s\" title=\"Trailer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></center></body></html>", idMovie);
+        webViewMovie.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+// quảng cáo
+//        webViewMovie.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                String url = request.getUrl().toString();
+//                // Xử lý url ở đây nếu cần thiết
+////                view.loadUrl(url);
+//                return true;
+//            }
+//        });
     }
 
     @Override
@@ -65,7 +63,7 @@ public class WatchMovieActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+// xử lý toàn màn hình
 //    private class MyChrome extends WebChromeClient {
 //        private View mCustomView;
 //        private WebChromeClient.CustomViewCallback mCustomViewCallback;

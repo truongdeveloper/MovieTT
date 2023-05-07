@@ -20,4 +20,8 @@
         android:id="@+id/navigation_cinema"
         android:icon="@drawable/film"
         android:title="Cinema" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_vote"-->
+<!--        android:icon="@drawable/vote"-->
+<!--        android:title="Vote" />-->
 </menu>
